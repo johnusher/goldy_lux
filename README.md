@@ -37,9 +37,9 @@ Three options depending on your risk appetite:
 
 | | If you... | Then... | Expected | Worst 5% |
 |-|-----------|---------|----------|----------|
-| **A** | Can stomach volatility | **All In Now** — invest remaining cash today | +8.2% | -24.6% |
-| **B** | Want a smoother ride | **DCA Quarterly** — invest 1/4 of cash each quarter | +6.5% | -20.5% |
-| **C** | Mainly want to avoid losses | **Hold Current** — keep cash on the side | +4.1% | -12.3% |
+| **A** | Can stomach volatility | **All In Now** — invest remaining cash today | +3.0% | -30.8% |
+| **B** | Want a smoother ride | **DCA Quarterly** — invest 1/4 of cash each quarter | +2.3% | -25.6% |
+| **C** | Mainly want to avoid losses | **Hold Current** — keep cash on the side | +1.5% | -15.4% |
 
 > _These numbers are re-generated each time `./update_gold.sh` runs. The figures above reflect the model's output at the time of the last update (see Bottom Line below for the latest). The model's inputs are rough estimates — treat these as structured thinking, not precise predictions._
 
@@ -56,16 +56,16 @@ Three options depending on your risk appetite:
 
 <!-- BOTTOM_LINE_START -->
 
-### Updated: 2026-04-23 12:10
+### Updated: 2026-04-23 17:51
 
 **Current Market Snapshot**
 
 | Metric | Value |
 |--------|-------|
-| Gold (EUR/g) | **129.6** |
-| Gold (USD/oz) | **$4,713** |
-| Brent Oil | **$98/bbl** |
-| EUR/USD | **1.169** |
+| Gold (EUR/g) | **130.4** |
+| Gold (USD/oz) | **$4,749** |
+| Brent Oil | **$103/bbl** |
+| EUR/USD | **1.171** |
 | Portfolio held | **3,000** |
 | Cash available | **3,000** |
 
@@ -73,9 +73,9 @@ Three options depending on your risk appetite:
 
 | Horizon | Mean | 25th-75th %ile | P(above current) |
 |---------|------|----------------|-------------------|
-| 3 months | 132.4 | 123.5 - 140.0 | 56% |
-| 6 months | 135.1 | 120.8 - 145.9 | 56% |
-| 12 months | 139.9 | 116.5 - 156.1 | 56% |
+| 3 months | 133.4 | 124.3 - 141.1 | 55% |
+| 6 months | 136.3 | 121.8 - 147.3 | 56% |
+| 12 months | 142.5 | 117.8 - 159.1 | 57% |
 
 **Key Recommendations**
 

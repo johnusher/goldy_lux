@@ -55,8 +55,48 @@ N_QUARTERS = config.N_QUARTERS
 # MONTE CARLO ENGINE
 # =============================================================================
 
-def simulate_paths(n_sim=N_SIMULATIONS, n_quarters=N_QUARTERS):
-    """Simulate n_sim paths through the Markov chain."""
+def _sample_returns(state_name, n, model='normal'):
+    """Sample quarterly gold returns using the specified model.
+
+    Models:
+      'normal'          — Gaussian (baseline)
+      'fat_tails'       — Student's t-distribution (fatter tails, same mean/scale)
+      'liquidity_crisis' — Normal + occasional forced-selling crash overlay
+      'both'            — Student's t + liquidity crisis overlay
+    """
+    mean, std = RETURNS[state_name]
+
+    # Base distribution
+    if model in ('fat_tails', 'both'):
+        df = config.T_DISTRIBUTION_DF
+        # Student's t with df degrees of freedom, scaled to match desired std.
+        # np.random.standard_t has variance = df/(df-2) for df>2,
+        # so we scale to get the target std.
+        scale = std * np.sqrt((df - 2) / df) if df > 2 else std
+        samples = mean + scale * np.random.standard_t(df, size=n)
+    else:
+        samples = np.random.normal(mean, std, size=n)
+
+    # Liquidity crisis overlay
+    if model in ('liquidity_crisis', 'both'):
+        crisis_prob = config.LIQUIDITY_CRISIS_PROB.get(state_name, 0.0)
+        crisis_mask = np.random.random(n) < crisis_prob
+        n_crisis = crisis_mask.sum()
+        if n_crisis > 0:
+            crisis_mean, crisis_std = config.LIQUIDITY_CRISIS_RETURN
+            crisis_returns = np.random.normal(crisis_mean, crisis_std, size=n_crisis)
+            # Crisis overrides the normal return for that quarter
+            samples[crisis_mask] = crisis_returns
+
+    return samples
+
+
+def simulate_paths(n_sim=N_SIMULATIONS, n_quarters=N_QUARTERS, model='normal'):
+    """Simulate n_sim paths through the Markov chain.
+
+    Args:
+        model: 'normal', 'fat_tails', 'liquidity_crisis', or 'both'
+    """
 
     # State trajectories: shape (n_sim, n_quarters+1)
     states = np.zeros((n_sim, n_quarters + 1), dtype=int)
@@ -77,17 +117,15 @@ def simulate_paths(n_sim=N_SIMULATIONS, n_quarters=N_QUARTERS):
             # Sample next states
             states[mask, q + 1] = np.random.choice(5, size=n, p=TRANS[s])
 
-        # Sample gold returns based on the NEW state (state determines environment)
+        # Sample gold returns based on the NEW state
         for s in range(5):
             mask = states[:, q + 1] == s
             n = mask.sum()
             if n == 0:
                 continue
-            mean, std = RETURNS[STATES[s]]
-            gold_returns[mask, q] = np.random.normal(mean, std, size=n)
+            gold_returns[mask, q] = _sample_returns(STATES[s], n, model=model)
 
     # Cumulative gold price factor at each quarter
-    # gold_factor[i, q] = cumulative return from time 0 to end of quarter q
     gold_factors = np.cumprod(1 + gold_returns, axis=1)
 
     return states, gold_returns, gold_factors
@@ -651,9 +689,153 @@ def print_summary(results):
 # MAIN
 # =============================================================================
 
+def plot_model_comparison(model_results):
+    """Compare Normal vs Fat Tails vs Liquidity Crisis vs Both."""
+
+    fig = make_subplots(
+        rows=2, cols=2,
+        subplot_titles=[
+            'All-In Strategy: Return Distributions by Model',
+            'Tail Risk Comparison (worst outcomes)',
+            'Model Impact on P(Loss)',
+            'Key Trade-offs',
+        ],
+        vertical_spacing=0.14,
+        horizontal_spacing=0.12,
+    )
+
+    model_colors = {
+        'Normal (Gaussian)': '#3498DB',
+        'Fat Tails (Student t)': '#E74C3C',
+        'Liquidity Crisis': '#F39C12',
+        'Both Combined': '#8E44AD',
+    }
+
+    initial = HELD_EUR + AVAILABLE_EUR
+
+    # Panel 1: Return distributions (All-In strategy)
+    for model_name, (_, _, gold_factors) in model_results.items():
+        all_in_vals = initial * gold_factors[:, -1]
+        returns = (all_in_vals / initial - 1) * 100
+        fig.add_trace(go.Violin(
+            y=returns,
+            name=model_name,
+            line_color=model_colors[model_name],
+            box_visible=True,
+            meanline_visible=True,
+            showlegend=True,
+            legendgroup=model_name,
+            scalemode='width',
+            width=0.8,
+        ), row=1, col=1)
+
+    fig.add_hline(y=0, line_dash="dash", line_color="gray", row=1, col=1)
+
+    # Panel 2: Tail risk — percentile comparison
+    percentiles = [1, 5, 10, 25]
+    for model_name, (_, _, gold_factors) in model_results.items():
+        all_in_vals = initial * gold_factors[:, -1]
+        returns = (all_in_vals / initial - 1) * 100
+        pct_vals = [np.percentile(returns, p) for p in percentiles]
+        fig.add_trace(go.Bar(
+            x=[f'{p}th %ile' for p in percentiles],
+            y=pct_vals,
+            name=model_name,
+            marker_color=model_colors[model_name],
+            showlegend=False,
+            legendgroup=model_name,
+        ), row=1, col=2)
+
+    fig.add_hline(y=0, line_dash="dash", line_color="gray", row=1, col=2)
+
+    # Panel 3: P(Loss) by strategy across models
+    strategy_keys = [
+        ('All In Now\n(€6k gold)', 'All In'),
+        ('DCA Quarterly\n(€3k now + €750/q)', 'DCA'),
+        ('Hold Current\n(€3k gold + €3k cash)', 'Hold'),
+        ('Buy the Dip\n(deploy €3k on -7%)', 'Buy Dip'),
+    ]
+
+    for model_name, (states, _, gold_factors) in model_results.items():
+        strat_results = evaluate_strategies(states, np.zeros_like(gold_factors), gold_factors)
+        p_losses = []
+        labels = []
+        for key, label in strategy_keys:
+            if key in strat_results:
+                p_losses.append((strat_results[key] < initial).mean() * 100)
+                labels.append(label)
+
+        fig.add_trace(go.Bar(
+            x=labels,
+            y=p_losses,
+            name=model_name,
+            marker_color=model_colors[model_name],
+            showlegend=False,
+            legendgroup=model_name,
+        ), row=2, col=1)
+
+    # Panel 4: Summary table as annotations
+    summary_rows = []
+    for model_name, (_, _, gold_factors) in model_results.items():
+        all_in = initial * gold_factors[:, -1]
+        returns = (all_in / initial - 1) * 100
+        summary_rows.append(
+            f"<b>{model_name}</b><br>"
+            f"E[return]: {np.mean(returns):+.1f}%<br>"
+            f"Median: {np.median(returns):+.1f}%<br>"
+            f"1st %ile: {np.percentile(returns, 1):+.1f}%<br>"
+            f"P(loss): {(all_in < initial).mean()*100:.1f}%<br>"
+            f"Skew: {float(pd.Series(returns).skew()):.2f}"
+        )
+
+    for i, text in enumerate(summary_rows):
+        fig.add_annotation(
+            x=0.1 + (i % 2) * 0.5,
+            y=0.8 - (i // 2) * 0.45,
+            xref='x4 domain', yref='y4 domain',
+            text=text,
+            showarrow=False,
+            font=dict(size=10),
+            align='left',
+            bgcolor='rgba(255,255,255,0.9)',
+            bordercolor=list(model_colors.values())[i],
+            borderwidth=2,
+            borderpad=6,
+        )
+
+    fig.update_xaxes(showticklabels=False, row=2, col=2)
+    fig.update_yaxes(showticklabels=False, row=2, col=2)
+
+    fig.update_layout(
+        title=dict(
+            text=(
+                "<b>Tail Risk Model Comparison: Normal vs Fat Tails vs Liquidity Crisis</b><br>"
+                "<sup>All-In Now strategy (€6k) | 50k simulations per model | "
+                "Which model best captures sell-off risk?</sup>"
+            ),
+            font=dict(size=14),
+        ),
+        barmode='group',
+        width=1200,
+        height=800,
+        plot_bgcolor='white',
+        paper_bgcolor='#FAFAFA',
+        legend=dict(x=0.01, y=0.99, font=dict(size=10)),
+    )
+
+    fig.update_yaxes(title_text="Return (%)", row=1, col=1)
+    fig.update_yaxes(title_text="Return (%)", row=1, col=2)
+    fig.update_yaxes(title_text="P(Loss) %", row=2, col=1)
+
+    return fig
+
+
 def main():
-    print("Running Monte Carlo simulation (50,000 paths × 4 quarters)...")
-    states, gold_returns, gold_factors = simulate_paths()
+    active_model = getattr(config, 'RETURN_MODEL', 'normal')
+    print(f"Running Monte Carlo simulation (active model: {active_model})...")
+
+    # Run the active model for strategy evaluation
+    states, gold_returns, gold_factors = simulate_paths(model=active_model)
 
     print("Evaluating strategies...")
     results = evaluate_strategies(states, gold_returns, gold_factors)
@@ -670,7 +852,7 @@ def main():
 
     # Save summary JSON for README auto-update
     initial = HELD_EUR + AVAILABLE_EUR
-    summary_data = {'strategies': {}}
+    summary_data = {'strategies': {}, 'active_model': active_model}
     strategy_name_map = {
         'Hold Current\n(€3k gold + €3k cash)': 'Hold Current',
         'All In Now\n(€6k gold)': 'All In Now',
@@ -694,6 +876,22 @@ def main():
         _json.dump(summary_data, f, indent=2)
     print("  mc_summary.json saved")
 
+    # --- Run all four models for comparison ---
+    print("\nRunning model comparison (Normal / Fat Tails / Liquidity Crisis / Both)...")
+    model_results = {}
+    for m_name, m_key in [('Normal (Gaussian)', 'normal'),
+                           ('Fat Tails (Student t)', 'fat_tails'),
+                           ('Liquidity Crisis', 'liquidity_crisis'),
+                           ('Both Combined', 'both')]:
+        s, r, f = simulate_paths(model=m_key)
+        model_results[m_name] = (s, r, f)
+        all_in = initial * f[:, -1]
+        ret = (np.mean(all_in) / initial - 1) * 100
+        p1 = (np.percentile(all_in, 1) / initial - 1) * 100
+        p5 = (np.percentile(all_in, 5) / initial - 1) * 100
+        ploss = (all_in < initial).mean() * 100
+        print(f"  {m_name:<25} E[ret]={ret:+5.1f}%  P1={p1:+6.1f}%  P5={p5:+6.1f}%  P(loss)={ploss:.1f}%")
+
     print("\nGenerating visualizations...")
 
     out = config.OUTPUT_DIR
@@ -701,6 +899,7 @@ def main():
         'mc_strategy_analysis': plot_strategy_distributions(results),
         'mc_simulated_paths': plot_simulated_paths(gold_factors, states),
         'mc_optimal_timing': plot_optimal_timing(gold_factors),
+        'mc_model_comparison': plot_model_comparison(model_results),
     }
 
     fig_hist = plot_historical_context()

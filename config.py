@@ -77,6 +77,37 @@ GOLD_EUR_RETURNS = {
 }
 
 # =====================================================================
+# SELL-OFF / TAIL RISK MODELING
+# =====================================================================
+# Choose which return model to use: "normal", "fat_tails", "liquidity_crisis", "both"
+RETURN_MODEL = "both"
+
+# --- Model B: Fat tails (Student's t-distribution) ---
+# Degrees of freedom for Student's t. Lower = fatter tails.
+# df=∞ → normal distribution; df=4-5 → realistic financial tails;
+# df=3 → very fat (may be too aggressive)
+T_DISTRIBUTION_DF = 4.5
+
+# --- Model A: Liquidity crisis overlay ---
+# Probability per quarter of a forced-selling cascade, conditional on state.
+# Calibrated from: 2008 GFC (30% drawdown), March 2026 (25% drawdown),
+# 2013 ETF liquidation. Only fires during stressed states.
+LIQUIDITY_CRISIS_PROB = {
+    'PEACE':        0.01,   # Very rare — no stress
+    'DETENTE':      0.02,   # Low — improving conditions
+    'STALEMATE':    0.04,   # Moderate — external shock possible
+    'ESCALATION':   0.08,   # Elevated — margin calls from oil/equity stress
+    'REGIONAL_WAR': 0.12,   # High — full correlation convergence risk
+}
+
+# When a liquidity crisis fires, gold drops sharply then partially recovers
+# within the same quarter. Net quarterly return drawn from this distribution:
+LIQUIDITY_CRISIS_RETURN = (-0.18, 0.06)  # (mean, std): avg -18%, std 6%
+# Calibrated from: March 2026 (-25% peak-to-trough, partial recovery to ~-15% net),
+#                  2008 GFC (-30% drawdown, partial recovery),
+#                  2013 (-15% net quarterly)
+
+# =====================================================================
 # PATHS — Derived automatically
 # =====================================================================
 
