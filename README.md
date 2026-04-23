@@ -288,26 +288,79 @@ prediction_history.json      Record validation results
 
 ---
 
+## Design Choices & Assumptions
+
+> Every model encodes assumptions. Here are ours, stated plainly, so you can judge whether they're reasonable for your situation.
+
+### Why Brent crude oil?
+
+The model tracks Brent (`BZ=F`) as its oil benchmark. There are several alternatives — here's why Brent is the right one for this specific use case:
+
+| Benchmark | What it is | Hormuz sensitivity | Data quality |
+|-----------|-----------|-------------------|-------------|
+| **Brent** | International reference (~80% of global trade) | **High** — Gulf exports are priced off Brent | Real-time futures via `BZ=F` |
+| WTI | US domestic benchmark | Lower — US is now a net exporter | Good, but wrong benchmark |
+| Dubai/Oman | Physical Middle East crude | Highest | Poor — lagged, hard to source |
+| OPEC Basket | OPEC composite | High | Reported with 1-2 day lag |
+
+Brent captures the full transmission chain that matters for a EUR-denominated gold investor: **Strait of Hormuz disruption → Brent spike → EU energy inflation → ECB policy response → EUR/USD move → gold price in EUR**. WTI would understate Gulf disruption impact because US domestic supply is largely insulated. Dubai/Oman crude would be the most direct measure but is impractical to source programmatically.
+
+### Why these five geopolitical states?
+
+The model discretizes a continuous spectrum of conflict intensity into five bins. Fewer states (e.g., "war" vs "peace") would miss the critical middle ground — the stalemate/detente range where most of the probability mass sits. More states (e.g., 8-10) would require even more subjective transition estimates with no meaningful gain in decision quality. Five states capture the main regimes that produce *qualitatively different* gold market dynamics.
+
+### Why quarterly transitions?
+
+Geopolitical shifts don't happen on a quarterly schedule, but quarterly steps are the coarsest resolution that still captures the key decision points: "should I invest now, in 3 months, in 6 months, or in 9 months?" Monthly steps would quadruple the number of transitions to estimate without changing the strategic conclusions. Weekly steps would be false precision given the ±5-10% uncertainty in the transition probabilities themselves.
+
+### Gold returns per state — where do these come from?
+
+The return distributions (e.g., "Escalation: mean +3%, std 12% per quarter") are calibrated from:
+
+1. **Historical conflict episodes**: Gold's behaviour during Gulf War 1990 (+13% then reversal), Iraq 2003 (buy-the-rumour/sell-the-news), Soleimani strike 2020 (+3.4% initial, +24.6% at 12m but amplified by COVID), and the current 2026 conflict itself (worst month since 2008 in March — the "safe haven failure").
+2. **Macro mechanism analysis**: In this conflict, oil shock → inflation expectations → higher real yields → stronger USD has *suppressed* gold, not lifted it. The return distributions reflect this counterintuitive dynamic rather than naive "war = gold up" assumptions.
+3. **Central bank buying data**: 1,000+ tonnes/year of central bank gold purchases (led by China, India, Turkey) creates a structural floor that is state-independent.
+
+These are informed estimates, not fitted parameters. They are honest guesses. The prediction tracker exists to measure how wrong they are over time.
+
+### Why not use real historical data to fit the model?
+
+There is no dataset of "200 US-Iran conflicts with quarterly gold returns." Geopolitical events are unique enough that pure statistical fitting would be overfit to irrelevant history. The model instead uses historical episodes for *calibration* (what order of magnitude?) and *mechanism validation* (does gold actually go up during escalation, or does the USD channel dominate?), then applies judgment. This is inherently subjective — see [Tetlock & Gardner, *Superforecasting* (2015)](https://en.wikipedia.org/wiki/Superforecasting) for context on structured geopolitical probability estimation.
+
+### Cash earns 0%
+
+The model treats uninvested cash as earning nothing. In practice, EUR cash earns the ECB deposit rate (~3-4% annualized as of 2026). This means the model slightly overstates the advantage of gold strategies vs. holding cash. For a 12-month horizon and €3k cash, this is roughly €90-120 of unmodelled return — not negligible, but not decision-changing either.
+
+### EUR/USD is implicit, not modelled separately
+
+Gold trades in USD. The iShares Physical Gold ETC is not EUR-hedged, so its EUR price depends on both gold-USD and EUR/USD. The model folds both into a single "gold EUR return" distribution per state rather than modelling them separately. This simplification loses the correlation structure — in an escalation scenario, gold-USD might be flat while EUR weakens against USD (safe-haven flows), making gold-EUR positive. The return distributions were designed to incorporate this effect implicitly, but it's a simplification.
+
+### iShares Physical Gold ETC tracking
+
+The model assumes the ETC perfectly tracks the spot gold price in EUR. In practice, the ETC has:
+- A total expense ratio (TER) of 0.12%
+- Bid-ask spreads (typically tight on Xetra, but can widen in volatile markets)
+- Slight tracking error from the physical gold backing mechanism
+
+Over a 12-month horizon on a ~€6k position, these frictions amount to ~€7-15 — negligible for the level of precision in this model.
+
+---
+
 ## Limitations
 
 > This tool is a structured framework for thinking about scenarios, not a crystal ball.
 
-**Model limitations:**
-- **Markov assumption**: The next state depends only on the current state, not history. In reality, geopolitical momentum and path-dependency matter.
-- **Normal distributions**: Gold returns are modeled as normally distributed. Real markets have fat tails — extreme moves are more likely than the model suggests.
-- **Five discrete states**: The real world is continuous. Forcing it into five bins loses nuance.
-- **Quarterly granularity**: Transitions happen continuously, not in 3-month jumps.
-- **Static parameters**: The transition matrix and return distributions don't update automatically from market data — they require manual calibration.
-- **No interest rates**: Cash earns 0% in the model. In reality, cash in EUR earns the deposit rate.
-- **No ETF tracking error**: The model assumes the ETF perfectly tracks gold.
-- **No tax effects**: Capital gains tax is not modeled.
-- **Correlation structure**: Gold-USD, EUR/USD, and oil dynamics are simplified into a single return distribution per state.
-- **Subjective probabilities**: The transition matrix reflects expert judgment, not objective calibration from data.
+**Structural limitations:**
+- **Markov assumption**: The next state depends only on the current state, not history. In reality, geopolitical momentum and path-dependency matter — six months of stalemate creates different dynamics than a fresh stalemate after escalation.
+- **Normal distributions**: Gold returns are modeled as normally distributed. Real markets have fat tails — extreme moves (Black Swan events) are more likely than the model suggests. The model will *underestimate* the probability of very large moves in either direction.
+- **Static parameters**: The transition matrix and return distributions don't update automatically from market data — they require manual recalibration when the world changes. This is the model's biggest weakness for long-term use.
+- **No tax effects**: Capital gains tax (Abgeltungsteuer in Germany: 26.375% on gains) is not modelled. It would reduce the advantage of active trading strategies (tactical, sell-and-rebuy) relative to buy-and-hold.
+- **Subjective probabilities**: The transition matrix reflects expert judgment, not objective calibration. Different analysts would assign different numbers. The prediction tracker is the mechanism for accountability.
 
 **Data limitations:**
-- Historical data from Yahoo Finance (yfinance) may have gaps or delays
+- Historical data from Yahoo Finance may have gaps, delays, or retroactive adjustments
 - Gold price in EUR depends on both gold-USD and EUR/USD, each with their own dynamics
-- Central bank buying data is reported with a lag
+- Central bank gold buying data (a key structural driver) is reported with a 1-2 month lag by the World Gold Council
 
 ---
 
