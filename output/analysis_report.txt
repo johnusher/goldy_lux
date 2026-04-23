@@ -1,0 +1,148 @@
+================================================================================
+GOLD ETF SCENARIO ANALYSIS: US-IRAN CONFLICT
+iShares Physical Gold ETC | April 2026 → April 2027
+================================================================================
+
+================================CURRENT POSITION================================
+  Gold (USD/oz):    $4,780
+  Gold (EUR/gram):  €131
+  Brent Oil:        $99/bbl
+  EUR/USD:          1.17
+  Held in gold ETF: €3,000
+  Available cash:   €3,000
+
+===========================MARKOV STATE PROBABILITIES===========================
+  State                     Now       3m       6m      12m
+  ----------------------------------------------------
+  Escalation                0%     35%     29%     27%
+  Stalemate               100%     40%     34%     27%
+  De-escalation             0%     25%     38%     45%
+
+==================12-MONTH TERMINAL SCENARIOS (by probability)==================
+
+  [18.8%] Post-Peace Growth Apr 2027
+         Gold: €113–€126/g ($4,100–$4,600/oz)
+         Oil:  $65–$78/bbl
+         Return: -9.0%  |  Action: HOLD
+         → Hold — lowest price scenario but structural bull intact long-term
+
+  [12.6%] New Normal Apr 2027
+         Gold: €126–€140/g ($4,600–$5,100/oz)
+         Oil:  $90–$104/bbl
+         Return: +1.5%  |  Action: HOLD
+         → Hold — range-bound but well-supported; collect on dips
+
+  [10.0%] Normalized Apr 2027
+         Gold: €115–€129/g ($4,200–$4,700/oz)
+         Oil:  $68–$82/bbl
+         Return: -6.9%  |  Action: HOLD
+         → Hold — structural gold bull transcends Iran conflict
+
+  [ 9.4%] Frozen Conflict Apr 2027
+         Gold: €129–€143/g ($4,700–$5,200/oz)
+         Oil:  $88–$102/bbl
+         Return: +3.6%  |  Action: HOLD
+         → Hold — gold in structural bull market independent of Iran
+
+  [ 8.8%] Peace Consolidates Apr 2027
+         Gold: €121–€135/g ($4,400–$4,900/oz)
+         Oil:  $70–$82/bbl
+         Return: -2.7%  |  Action: HOLD
+         → Hold — bought at bottom; long-term structural bull
+
+  [ 7.2%] Slow Resolution Apr 2027
+         Gold: €124–€137/g ($4,500–$5,000/oz)
+         Oil:  $82–$96/bbl
+         Return: -0.6%  |  Action: HOLD
+         → Hold — conflict premium fading, structural bull remains
+
+  [ 6.3%] War Exhaustion→Peace Apr 2027
+         Gold: €121–€135/g ($4,400–$4,900/oz)
+         Oil:  $72–$88/bbl
+         Return: -2.7%  |  Action: BUY
+         → Buy the peace — post-war overshooting creates opportunity
+
+  [ 6.3%] Late Resolution Apr 2027
+         Gold: €118–€132/g ($4,300–$4,800/oz)
+         Oil:  $76–$90/bbl
+         Return: -4.8%  |  Action: HOLD
+         → Hold long-term; gold supported by non-conflict factors
+
+  [ 6.2%] Renewed Tensions Apr 2027
+         Gold: €135–€148/g ($4,900–$5,400/oz)
+         Oil:  $100–$120/bbl
+         Return: +7.7%  |  Action: HOLD
+         → Hold — already positioned from earlier buy
+
+  [ 5.4%] Breakthrough Apr 2027
+         Gold: €118–€132/g ($4,300–$4,800/oz)
+         Oil:  $74–$88/bbl
+         Return: -4.8%  |  Action: HOLD
+         → Hold — gold dip is temporary; structural supports strong
+
+  [ 4.8%] Late Escalation Apr 2027
+         Gold: €143–€159/g ($5,200–$5,800/oz)
+         Oil:  $120–$145/bbl
+         Return: +15.1%  |  Action: SELL
+         → Sell into spike — take profits on half position
+
+  [ 4.2%] Prolonged War Apr 2027
+         Gold: €159–€179/g ($5,800–$6,500/oz)
+         Oil:  $125–$155/bbl
+         Return: +28.7%  |  Action: SELL
+         → Take full profits — extreme overshoot; sell entire position
+
+=========================STRATEGY COMPARISON (12-month)=========================
+  Strategy                    Expected   Return      Worst       Best
+  ---------------------------------------------------------------
+  Hold All                  €   5,983   -0.3% €   5,730 €   6,860
+  All In Now                €   5,969   -0.5% €   5,461 €   7,720
+  DCA Quarterly             €   5,525   -7.9% €   4,947 €   7,611
+  Adaptive (Recommended)    €   5,730   -4.5% €   5,243 €   7,411
+
+==============================KEY RECOMMENDATIONS===============================
+
+  IMMEDIATE (Now):
+    → HOLD existing €3k position
+    → Do NOT deploy fresh capital yet — wait for ceasefire resolution
+    → Set price alerts at €82/g (buy) and €100/g (sell)
+
+  IF CEASEFIRE COLLAPSES (next 1-4 weeks):
+    → Do NOT chase the initial gold spike — it reverses historically
+    → Wait for the post-spike pullback (typically 2-4 weeks after escalation)
+    → Then deploy €1,500 of the €3k available
+
+  IF STALEMATE CONTINUES (3-month horizon):
+    → Begin DCA: invest €1,000/month over 3 months during dips
+    → Target entries below €86/g
+
+  IF DE-ESCALATION / PEACE DEAL:
+    → Deploy €2,000–€3,000 aggressively on the dip
+    → Gold falls on peace but structural bull (CB buying, fiscal deficits) supports floor
+    → This is the BEST entry point for long-term position
+
+  IF WIDER REGIONAL WAR:
+    → Sell €1,500 of held position into the spike (above €105/g)
+    → Extreme levels (€120+/g) are unsustainable — take profits
+    → Redeploy after inevitable pullback
+
+  GENERAL:
+    → Probability-weighted expected gold (EUR) at 12m: slight positive vs. current
+    → The asymmetry favors holding: downside ~-10%, upside ~+40% in tail scenarios
+    → Central bank buying (1,000+ tonnes/year) provides structural floor
+    → iShares Physical Gold ETC has no EUR hedge — you also carry EUR/USD exposure
+
+
+=============================CRITICAL WATCH EVENTS==============================
+
+  1. Ceasefire expiry / extension decision (imminent — next days/weeks)
+  2. Strait of Hormuz shipping status (daily monitoring)
+  3. US Fed rate decision response to oil-driven inflation
+  4. ECB policy meeting (any hawkish shift = EUR strengthens = lower EUR gold price)
+  5. PBOC / RBI gold reserve reports (monthly — structural floor indicator)
+  6. Trump social media / policy announcements on Iran (volatility trigger)
+
+================================================================================
+DISCLAIMER: This is a scenario analysis model, not financial advice.
+All probabilities are subjective estimates. Past performance ≠ future results.
+================================================================================

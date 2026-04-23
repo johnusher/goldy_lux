@@ -1,0 +1,93 @@
+{
+  "predictions": [
+    {
+      "date": "2026-04-23",
+      "timestamp": "2026-04-23T10:36:46.444744",
+      "actual_gold_eur_gram": 130.12,
+      "actual_gold_usd_oz": 4737.4,
+      "actual_brent": 97.18,
+      "actual_eurusd": 1.1705,
+      "model_hash": "bf0f8750e8b0",
+      "predictions": {
+        "3m": {
+          "target_date": "2026-07-23",
+          "mean": 132.58,
+          "median": 131.47,
+          "p10": 116.5,
+          "p25": 123.59,
+          "p75": 140.24,
+          "p90": 150.31,
+          "prob_above_current": 0.5446
+        },
+        "6m": {
+          "target_date": "2026-10-22",
+          "mean": 135.43,
+          "median": 132.18,
+          "p10": 111.43,
+          "p25": 121.11,
+          "p75": 146.59,
+          "p90": 163.5,
+          "prob_above_current": 0.5472
+        },
+        "12m": {
+          "target_date": "2027-04-22",
+          "mean": 141.11,
+          "median": 134.18,
+          "p10": 104.07,
+          "p25": 116.56,
+          "p75": 157.72,
+          "p90": 186.3,
+          "prob_above_current": 0.554
+        }
+      }
+    },
+    {
+      "date": "2026-04-23",
+      "timestamp": "2026-04-23T10:40:05.457713",
+      "actual_gold_eur_gram": 130.01,
+      "actual_gold_usd_oz": 4731.7,
+      "actual_brent": 97.68,
+      "actual_eurusd": 1.1701,
+      "model_hash": "bf0f8750e8b0",
+      "predictions": {
+        "3m": {
+          "target_date": "2026-07-23",
+          "mean": 132.61,
+          "median": 131.44,
+          "p10": 116.66,
+          "p25": 123.5,
+          "p75": 140.22,
+          "p90": 150.07,
+          "prob_above_current": 0.5487
+        },
+        "6m": {
+          "target_date": "2026-10-22",
+          "mean": 135.64,
+          "median": 132.63,
+          "p10": 111.58,
+          "p25": 120.99,
+          "p75": 146.64,
+          "p90": 163.45,
+          "prob_above_current": 0.5554
+        },
+        "12m": {
+          "target_date": "2027-04-22",
+          "mean": 140.59,
+          "median": 133.71,
+          "p10": 103.96,
+          "p25": 116.9,
+          "p75": 156.4,
+          "p90": 184.54,
+          "prob_above_current": 0.5524
+        }
+      }
+    }
+  ],
+  "validations": [],
+  "metadata": {
+    "created": "2026-04-23T10:36:45.179769",
+    "model_version": "1.0",
+    "last_updated": "2026-04-23T10:40:05.457823",
+    "n_predictions": 2
+  }
+}

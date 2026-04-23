@@ -1,0 +1,589 @@
+{
+  "NOW": {
+    "name": "Current State Apr 2026",
+    "month": 0,
+    "gold_eur_range": [
+      129.2,
+      133.3
+    ],
+    "gold_usd_range": [
+      4700,
+      4850
+    ],
+    "oil_range": [
+      96,
+      102
+    ],
+    "probability": 1.0,
+    "expected_return_eur_pct": -0.10460251046024993,
+    "action": "HOLD",
+    "action_rationale": "Wait for clarity on ceasefire outcome",
+    "parent": null,
+    "children": [
+      "3M_ESCALATION",
+      "3M_STALEMATE",
+      "3M_DEESCALATION"
+    ],
+    "description": "Fragile ceasefire, Strait partially open, oil ~$99, gold ~$4,780"
+  },
+  "3M_ESCALATION": {
+    "name": "Escalation Jul 2026",
+    "month": 3,
+    "gold_eur_range": [
+      134.6,
+      145.6
+    ],
+    "gold_usd_range": [
+      4900,
+      5300
+    ],
+    "oil_range": [
+      115,
+      135
+    ],
+    "probability": 0.35,
+    "expected_return_eur_pct": 6.694560669456062,
+    "action": "HOLD",
+    "action_rationale": "Spike is short-lived historically; don't chase",
+    "parent": "NOW",
+    "children": [
+      "6M_WIDER_WAR",
+      "6M_ESC_STALEMATE",
+      "6M_FORCED_PEACE"
+    ],
+    "description": "Ceasefire collapses. New strikes on Iranian targets. Strait of Hormuz fully closed again. Oil spikes. USD surges on safe-haven flows. Gold spikes then fades."
+  },
+  "3M_STALEMATE": {
+    "name": "Stalemate Jul 2026",
+    "month": 3,
+    "gold_eur_range": [
+      123.7,
+      137.4
+    ],
+    "gold_usd_range": [
+      4500,
+      5000
+    ],
+    "oil_range": [
+      92,
+      108
+    ],
+    "probability": 0.4,
+    "expected_return_eur_pct": -0.6276150627615107,
+    "action": "BUY",
+    "action_rationale": "Accumulate on dips during range-bound trading; invest \u20ac1,500",
+    "parent": "NOW",
+    "children": [
+      "6M_SLOW_ESC",
+      "6M_CONT_STALEMATE",
+      "6M_GRAD_DEESC"
+    ],
+    "description": "Ceasefire extended but no real progress. Partial Strait access. Oil elevated but stable. Markets adapt to new normal. Gold range-bound with high volatility."
+  },
+  "3M_DEESCALATION": {
+    "name": "De-escalation Jul 2026",
+    "month": 3,
+    "gold_eur_range": [
+      115.4,
+      126.4
+    ],
+    "gold_usd_range": [
+      4200,
+      4600
+    ],
+    "oil_range": [
+      80,
+      92
+    ],
+    "probability": 0.25,
+    "expected_return_eur_pct": -7.949790794979084,
+    "action": "BUY",
+    "action_rationale": "Strong buy on dip \u2014 structural gold bull case intact; invest \u20ac2,000",
+    "parent": "NOW",
+    "children": [
+      "6M_DEAL_FAILS",
+      "6M_PEACE_DEAL"
+    ],
+    "description": "Meaningful diplomatic progress. Extended ceasefire with monitors. Strait fully reopened. Oil drops sharply. Risk premium fades. Gold falls in USD but EUR-gold more stable as USD weakens."
+  },
+  "6M_WIDER_WAR": {
+    "name": "Wider War Oct 2026",
+    "month": 6,
+    "gold_eur_range": [
+      148.4,
+      164.9
+    ],
+    "gold_usd_range": [
+      5400,
+      6000
+    ],
+    "oil_range": [
+      135,
+      165
+    ],
+    "probability": 0.105,
+    "expected_return_eur_pct": 19.246861924686186,
+    "action": "SELL",
+    "action_rationale": "Take profits on held position (sell \u20ac1,500 of \u20ac3k); extreme levels rarely sustained",
+    "parent": "3M_ESCALATION",
+    "children": [
+      "12M_PROLONGED_WAR",
+      "12M_WAR_EXHAUSTION"
+    ],
+    "description": "Conflict spreads to Lebanon/Hezbollah front. Gulf state infrastructure hit. Global recession fears. Flight to safety overwhelms macro headwinds. Gold surges as systemic risk dominates."
+  },
+  "6M_ESC_STALEMATE": {
+    "name": "Escalation\u2192Stalemate Oct 2026",
+    "month": 6,
+    "gold_eur_range": [
+      126.4,
+      140.1
+    ],
+    "gold_usd_range": [
+      4600,
+      5100
+    ],
+    "oil_range": [
+      100,
+      118
+    ],
+    "probability": 0.1575,
+    "expected_return_eur_pct": 1.4644351464435212,
+    "action": "BUY",
+    "action_rationale": "Buy dip after spike reversal; invest \u20ac1,500",
+    "parent": "3M_ESCALATION",
+    "children": [
+      "12M_FROZEN_CONFLICT",
+      "12M_ESC_RESOLUTION"
+    ],
+    "description": "Initial escalation burns out. Both sides exhausted. Partial Strait reopening. Oil eases from peak but stays elevated. Gold gives back spike gains. Real yields pressure persists."
+  },
+  "6M_FORCED_PEACE": {
+    "name": "Escalation\u2192Peace Oct 2026",
+    "month": 6,
+    "gold_eur_range": [
+      112.7,
+      123.7
+    ],
+    "gold_usd_range": [
+      4100,
+      4500
+    ],
+    "oil_range": [
+      78,
+      90
+    ],
+    "probability": 0.0875,
+    "expected_return_eur_pct": -10.041841004184104,
+    "action": "BUY",
+    "action_rationale": "Strong buy \u2014 risk premium oversold; invest full \u20ac3k",
+    "parent": "3M_ESCALATION",
+    "children": [
+      "12M_PEACE_HOLDS"
+    ],
+    "description": "Escalation creates urgency for deal. Back-channel negotiations succeed. Comprehensive ceasefire with international monitors. Oil drops rapidly. Gold falls on risk premium collapse."
+  },
+  "6M_SLOW_ESC": {
+    "name": "Slow Escalation Oct 2026",
+    "month": 6,
+    "gold_eur_range": [
+      129.2,
+      142.9
+    ],
+    "gold_usd_range": [
+      4700,
+      5200
+    ],
+    "oil_range": [
+      105,
+      120
+    ],
+    "probability": 0.12,
+    "expected_return_eur_pct": 3.556485355648542,
+    "action": "HOLD",
+    "action_rationale": "Hold existing position; wait for resolution clarity",
+    "parent": "3M_STALEMATE",
+    "children": [
+      "12M_LATE_ESCALATION",
+      "12M_SLOW_RESOLUTION"
+    ],
+    "description": "Stalemate drifts toward escalation. Proxy attacks increase. Strait incidents become more frequent. Oil creeps up. Gold volatile, slight upward bias."
+  },
+  "6M_CONT_STALEMATE": {
+    "name": "Continued Stalemate Oct 2026",
+    "month": 6,
+    "gold_eur_range": [
+      120.9,
+      134.6
+    ],
+    "gold_usd_range": [
+      4400,
+      4900
+    ],
+    "oil_range": [
+      93,
+      107
+    ],
+    "probability": 0.18,
+    "expected_return_eur_pct": -2.7196652719665315,
+    "action": "BUY",
+    "action_rationale": "Continue accumulating; invest remaining available (\u20ac1,500)",
+    "parent": "3M_STALEMATE",
+    "children": [
+      "12M_NEW_NORMAL",
+      "12M_STALE_BREAKTHROUGH"
+    ],
+    "description": "More of the same. Markets fully price in 'new normal'. Oil stabilizes $95-105. Gold range-bound. Central bank buying supports, real yields cap upside."
+  },
+  "6M_GRAD_DEESC": {
+    "name": "Gradual De-escalation Oct 2026",
+    "month": 6,
+    "gold_eur_range": [
+      118.2,
+      129.2
+    ],
+    "gold_usd_range": [
+      4300,
+      4700
+    ],
+    "oil_range": [
+      84,
+      96
+    ],
+    "probability": 0.1,
+    "expected_return_eur_pct": -5.857740585774063,
+    "action": "HOLD",
+    "action_rationale": "Hold; gold structural bull intact despite conflict resolution",
+    "parent": "3M_STALEMATE",
+    "children": [
+      "12M_NORMALIZED"
+    ],
+    "description": "Quiet diplomacy works. Confidence-building measures. Strait incidents decrease. Oil eases. Gold drifts lower but structural support holds."
+  },
+  "6M_DEAL_FAILS": {
+    "name": "Deal Fails Oct 2026",
+    "month": 6,
+    "gold_eur_range": [
+      126.4,
+      137.4
+    ],
+    "gold_usd_range": [
+      4600,
+      5000
+    ],
+    "oil_range": [
+      95,
+      110
+    ],
+    "probability": 0.0625,
+    "expected_return_eur_pct": 0.4184100418409997,
+    "action": "HOLD",
+    "action_rationale": "Already bought the dip; hold through volatility",
+    "parent": "3M_DEESCALATION",
+    "children": [
+      "12M_RENEWED_TENSIONS"
+    ],
+    "description": "Initial progress reverses. Hardliners on both sides scuttle deal. Return to tensions. Oil rebounds. Gold recovers some of the de-escalation drop."
+  },
+  "6M_PEACE_DEAL": {
+    "name": "Peace Deal Oct 2026",
+    "month": 6,
+    "gold_eur_range": [
+      112.7,
+      123.7
+    ],
+    "gold_usd_range": [
+      4100,
+      4500
+    ],
+    "oil_range": [
+      72,
+      85
+    ],
+    "probability": 0.1875,
+    "expected_return_eur_pct": -10.041841004184104,
+    "action": "HOLD",
+    "action_rationale": "Hold \u2014 structural gold supports (CB buying, debt levels) remain",
+    "parent": "3M_DEESCALATION",
+    "children": [
+      "12M_POST_PEACE"
+    ],
+    "description": "Comprehensive deal: sanctions relief, nuclear inspections, Strait guarantees. Oil normalizes. USD weakens. Gold falls in USD, stable in EUR. Risk premium fully unwound."
+  },
+  "12M_PROLONGED_WAR": {
+    "name": "Prolonged War Apr 2027",
+    "month": 12,
+    "gold_eur_range": [
+      159.4,
+      178.6
+    ],
+    "gold_usd_range": [
+      5800,
+      6500
+    ],
+    "oil_range": [
+      125,
+      155
+    ],
+    "probability": 0.042,
+    "expected_return_eur_pct": 28.661087866108794,
+    "action": "SELL",
+    "action_rationale": "Take full profits \u2014 extreme overshoot; sell entire position",
+    "parent": "6M_WIDER_WAR",
+    "children": [],
+    "description": "Regional conflict entrenched. Global recession underway. Central banks cut rates \u2192 real yields plunge \u2192 gold soars. EUR gold at all-time highs."
+  },
+  "12M_WAR_EXHAUSTION": {
+    "name": "War Exhaustion\u2192Peace Apr 2027",
+    "month": 12,
+    "gold_eur_range": [
+      120.9,
+      134.6
+    ],
+    "gold_usd_range": [
+      4400,
+      4900
+    ],
+    "oil_range": [
+      72,
+      88
+    ],
+    "probability": 0.063,
+    "expected_return_eur_pct": -2.7196652719665315,
+    "action": "BUY",
+    "action_rationale": "Buy the peace \u2014 post-war overshooting creates opportunity",
+    "parent": "6M_WIDER_WAR",
+    "children": [],
+    "description": "War exhaustion forces settlement. Rapid normalization. Oil crashes toward $75. Gold falls sharply but overshoots down. Good re-entry point."
+  },
+  "12M_FROZEN_CONFLICT": {
+    "name": "Frozen Conflict Apr 2027",
+    "month": 12,
+    "gold_eur_range": [
+      129.2,
+      142.9
+    ],
+    "gold_usd_range": [
+      4700,
+      5200
+    ],
+    "oil_range": [
+      88,
+      102
+    ],
+    "probability": 0.094,
+    "expected_return_eur_pct": 3.556485355648542,
+    "action": "HOLD",
+    "action_rationale": "Hold \u2014 gold in structural bull market independent of Iran",
+    "parent": "6M_ESC_STALEMATE",
+    "children": [],
+    "description": "Low-level frozen conflict like North Korea model. Markets fully adapted. Oil $90-100. Gold supported by structural factors, not conflict premium."
+  },
+  "12M_ESC_RESOLUTION": {
+    "name": "Late Resolution Apr 2027",
+    "month": 12,
+    "gold_eur_range": [
+      118.2,
+      131.9
+    ],
+    "gold_usd_range": [
+      4300,
+      4800
+    ],
+    "oil_range": [
+      76,
+      90
+    ],
+    "probability": 0.063,
+    "expected_return_eur_pct": -4.811715481171552,
+    "action": "HOLD",
+    "action_rationale": "Hold long-term; gold supported by non-conflict factors",
+    "parent": "6M_ESC_STALEMATE",
+    "children": [],
+    "description": "Prolonged process finally yields framework agreement. Oil normalizes. Gold gives back conflict premium but structural bull intact (CB buying, fiscal deficits)."
+  },
+  "12M_PEACE_HOLDS": {
+    "name": "Peace Consolidates Apr 2027",
+    "month": 12,
+    "gold_eur_range": [
+      120.9,
+      134.6
+    ],
+    "gold_usd_range": [
+      4400,
+      4900
+    ],
+    "oil_range": [
+      70,
+      82
+    ],
+    "probability": 0.0875,
+    "expected_return_eur_pct": -2.7196652719665315,
+    "action": "HOLD",
+    "action_rationale": "Hold \u2014 bought at bottom; long-term structural bull",
+    "parent": "6M_FORCED_PEACE",
+    "children": [],
+    "description": "Post-escalation peace deal holds. Sanctions partially lifted. Iran oil returns to market. Global growth recovers. Gold structurally supported but no conflict premium."
+  },
+  "12M_LATE_ESCALATION": {
+    "name": "Late Escalation Apr 2027",
+    "month": 12,
+    "gold_eur_range": [
+      142.9,
+      159.4
+    ],
+    "gold_usd_range": [
+      5200,
+      5800
+    ],
+    "oil_range": [
+      120,
+      145
+    ],
+    "probability": 0.048,
+    "expected_return_eur_pct": 15.062761506276146,
+    "action": "SELL",
+    "action_rationale": "Sell into spike \u2014 take profits on half position",
+    "parent": "6M_SLOW_ESC",
+    "children": [],
+    "description": "Slow burn finally erupts. New military campaign. Markets shocked after complacency. Gold spikes hard."
+  },
+  "12M_SLOW_RESOLUTION": {
+    "name": "Slow Resolution Apr 2027",
+    "month": 12,
+    "gold_eur_range": [
+      123.7,
+      137.4
+    ],
+    "gold_usd_range": [
+      4500,
+      5000
+    ],
+    "oil_range": [
+      82,
+      96
+    ],
+    "probability": 0.072,
+    "expected_return_eur_pct": -0.6276150627615107,
+    "action": "HOLD",
+    "action_rationale": "Hold \u2014 conflict premium fading, structural bull remains",
+    "parent": "6M_SLOW_ESC",
+    "children": [],
+    "description": "Tension gradually defused through back channels. Oil normalizes. Gold stable, supported by macro factors."
+  },
+  "12M_NEW_NORMAL": {
+    "name": "New Normal Apr 2027",
+    "month": 12,
+    "gold_eur_range": [
+      126.4,
+      140.1
+    ],
+    "gold_usd_range": [
+      4600,
+      5100
+    ],
+    "oil_range": [
+      90,
+      104
+    ],
+    "probability": 0.126,
+    "expected_return_eur_pct": 1.4644351464435212,
+    "action": "HOLD",
+    "action_rationale": "Hold \u2014 range-bound but well-supported; collect on dips",
+    "parent": "6M_CONT_STALEMATE",
+    "children": [],
+    "description": "Permanent elevated baseline. Like post-2014 Russia sanctions. Oil $90-100 structural floor. Gold in $4,600-5,000 band. Volatility decreases as markets adapt."
+  },
+  "12M_STALE_BREAKTHROUGH": {
+    "name": "Breakthrough Apr 2027",
+    "month": 12,
+    "gold_eur_range": [
+      118.2,
+      131.9
+    ],
+    "gold_usd_range": [
+      4300,
+      4800
+    ],
+    "oil_range": [
+      74,
+      88
+    ],
+    "probability": 0.054,
+    "expected_return_eur_pct": -4.811715481171552,
+    "action": "HOLD",
+    "action_rationale": "Hold \u2014 gold dip is temporary; structural supports strong",
+    "parent": "6M_CONT_STALEMATE",
+    "children": [],
+    "description": "Unexpected diplomatic breakthrough after prolonged stalemate. Oil drops. Gold dips briefly then recovers as focus shifts to fiscal/monetary factors."
+  },
+  "12M_NORMALIZED": {
+    "name": "Normalized Apr 2027",
+    "month": 12,
+    "gold_eur_range": [
+      115.4,
+      129.2
+    ],
+    "gold_usd_range": [
+      4200,
+      4700
+    ],
+    "oil_range": [
+      68,
+      82
+    ],
+    "probability": 0.1,
+    "expected_return_eur_pct": -6.903765690376574,
+    "action": "HOLD",
+    "action_rationale": "Hold \u2014 structural gold bull transcends Iran conflict",
+    "parent": "6M_GRAD_DEESC",
+    "children": [],
+    "description": "Full normalization of Gulf shipping. Iran nuclear deal 2.0. Oil back to $70-80. Gold stable, driven by macro not geopolitics. CB buying continues to support floor."
+  },
+  "12M_RENEWED_TENSIONS": {
+    "name": "Renewed Tensions Apr 2027",
+    "month": 12,
+    "gold_eur_range": [
+      134.6,
+      148.4
+    ],
+    "gold_usd_range": [
+      4900,
+      5400
+    ],
+    "oil_range": [
+      100,
+      120
+    ],
+    "probability": 0.0625,
+    "expected_return_eur_pct": 7.740585774058584,
+    "action": "HOLD",
+    "action_rationale": "Hold \u2014 already positioned from earlier buy",
+    "parent": "6M_DEAL_FAILS",
+    "children": [],
+    "description": "Failed deal leads to hardliner empowerment on both sides. New escalation cycle. Gold benefits from renewed uncertainty."
+  },
+  "12M_POST_PEACE": {
+    "name": "Post-Peace Growth Apr 2027",
+    "month": 12,
+    "gold_eur_range": [
+      112.7,
+      126.4
+    ],
+    "gold_usd_range": [
+      4100,
+      4600
+    ],
+    "oil_range": [
+      65,
+      78
+    ],
+    "probability": 0.1875,
+    "expected_return_eur_pct": -8.995815899581594,
+    "action": "HOLD",
+    "action_rationale": "Hold \u2014 lowest price scenario but structural bull intact long-term",
+    "parent": "6M_PEACE_DEAL",
+    "children": [],
+    "description": "Sustained peace. Global growth recovery. Gold moderates but stays supported by structural factors: CB buying, fiscal deficits, de-dollarization trend."
+  }
+}

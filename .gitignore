@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+.env
+venv/
+*.egg-info/
+.vscode/
+.idea/
+
+# Old root-level scripts (now in src/)
+/gold_scenario_tree.py
+/monte_carlo_analysis.py
