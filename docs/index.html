@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goldy-Lux: Gold ETF Scenario Analysis</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: #0d1117; color: #c9d1d9; line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        h1 { color: #f0f6fc; font-size: 2.5rem; margin-bottom: 0.5rem; }
+        h1 span { color: #ffd700; }
+        .subtitle { color: #8b949e; font-size: 1.1rem; margin-bottom: 2rem; }
+        h2 { color: #f0f6fc; margin: 2rem 0 1rem; border-bottom: 1px solid #21262d; padding-bottom: 0.5rem; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .card {
+            background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+            padding: 1.2rem; transition: border-color 0.2s;
+        }
+        .card:hover { border-color: #ffd700; }
+        .card h3 { color: #ffd700; margin-bottom: 0.5rem; font-size: 1rem; }
+        .card p { color: #8b949e; font-size: 0.85rem; margin-bottom: 0.8rem; }
+        .card a {
+            color: #58a6ff; text-decoration: none; font-weight: 600;
+            display: inline-block; padding: 0.3rem 0.8rem; border: 1px solid #58a6ff;
+            border-radius: 4px; font-size: 0.85rem;
+        }
+        .card a:hover { background: #58a6ff; color: #0d1117; }
+        .badge {
+            display: inline-block; padding: 0.2rem 0.6rem; border-radius: 12px;
+            font-size: 0.75rem; font-weight: 600; margin-right: 0.3rem;
+        }
+        .badge-green { background: #238636; color: #fff; }
+        .badge-orange { background: #d29922; color: #fff; }
+        .badge-red { background: #da3633; color: #fff; }
+        .badge-blue { background: #1f6feb; color: #fff; }
+        footer { margin-top: 3rem; text-align: center; color: #484f58; font-size: 0.85rem; }
+        footer a { color: #58a6ff; text-decoration: none; }
+        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1><span>GOLDY</span>-LUX</h1>
+    <p class="subtitle">Gold ETF Scenario Analysis &amp; Decision Engine</p>
+    <p>
+        <span class="badge badge-blue">Markov Chain</span>
+        <span class="badge badge-orange">Monte Carlo</span>
+        <span class="badge badge-green">50k Simulations</span>
+        <span class="badge badge-red">12 Scenarios</span>
+    </p>
+
+    <h2>Interactive Visualizations</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>Scenario Tree</h3>
+            <p>12-branch geopolitical scenario tree with transition probabilities and buy/sell/hold recommendations.</p>
+            <a href="scenario_tree.html">Open Chart</a>
+        </div>
+        <div class="card">
+            <h3>Monte Carlo Paths</h3>
+            <p>50,000 simulated gold price paths colored by terminal geopolitical state.</p>
+            <a href="mc_simulated_paths.html">Open Chart</a>
+        </div>
+        <div class="card">
+            <h3>Strategy Analysis</h3>
+            <p>Portfolio outcome distributions and risk-return profiles for 6 investment strategies.</p>
+            <a href="mc_strategy_analysis.html">Open Chart</a>
+        </div>
+        <div class="card">
+            <h3>Historical Context</h3>
+            <p>Gold ETC and Brent oil price history with key conflict event markers.</p>
+            <a href="historical_context.html">Open Chart</a>
+        </div>
+        <div class="card">
+            <h3>Optimal Timing</h3>
+            <p>Expected return by entry point and probability of profit by holding period.</p>
+            <a href="mc_optimal_timing.html">Open Chart</a>
+        </div>
+        <div class="card">
+            <h3>Markov Transitions</h3>
+            <p>State probability evolution and transition matrices between geopolitical states.</p>
+            <a href="markov_transitions.html">Open Chart</a>
+        </div>
+        <div class="card">
+            <h3>Price Heatmap</h3>
+            <p>Gold price probability density across time horizons.</p>
+            <a href="price_heatmap.html">Open Chart</a>
+        </div>
+        <div class="card">
+            <h3>Decision Timeline</h3>
+            <p>Buy/sell signal map across all scenarios with probability-weighted markers.</p>
+            <a href="decision_timeline.html">Open Chart</a>
+        </div>
+    </div>
+
+    <footer>
+        <p><a href="https://github.com/johnusher/goldy_lux">View on GitHub</a></p>
+        <p>Not financial advice. All probabilities are model estimates.</p>
+    </footer>
+</div>
+</body>
+</html>
