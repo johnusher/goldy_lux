@@ -96,6 +96,8 @@ States transition quarterly according to a **Markov transition matrix** — the 
 <img src="output/markov_transitions.png" alt="Markov Transitions" width="75%">
 </div>
 
+**How honest are these numbers?** The transition probabilities (e.g., "48% chance escalation persists") are informed estimates, not measured frequencies. There is no dataset of "100 similar US-Iran conflicts" to calibrate against. They reflect a blend of historical conflict patterns (Gulf War, Iraq 2003, Soleimani 2020), current reporting, and judgment. Realistically they're accurate to ±5-10 percentage points at best. The prediction tracking system (see below) exists precisely to measure how well these estimates perform over time and flag when they need recalibration.
+
 ### 3. Scenario Tree
 
 The transition matrix generates a **branching tree** of scenarios:
@@ -108,7 +110,20 @@ Each terminal node carries a probability, expected gold price range, and a buy/s
 
 ### 4. Monte Carlo Simulation
 
-**50,000 paths** are simulated through the Markov chain, sampling gold returns from state-dependent distributions at each quarter. This gives robust probability distributions for portfolio outcomes under different strategies:
+A single simulation = "roll the dice" once per quarter through the Markov chain, sampling a random gold return at each step, and see where the portfolio ends up. That's one possible future. Repeat many times and you get a **distribution** of outcomes — letting you say things like "56% of futures were profitable" rather than just a single point forecast.
+
+**Why 50,000 paths?** Monte Carlo estimation error shrinks as 1/sqrt(N):
+
+| Simulations | MC Error | Runtime | Notes |
+|-------------|----------|---------|-------|
+| 1,000 | ~3% | <1s | Visibly noisy between runs |
+| 10,000 | ~1% | ~1s | Stable for most purposes |
+| **50,000** | **~0.45%** | **~2s** | Default — diminishing returns beyond here |
+| 500,000 | ~0.14% | ~15s | Only needed for extreme tail estimates |
+
+**An important caveat:** The input parameters — transition probabilities, return distributions — are themselves rough estimates, probably accurate to ±5-10% at best. A Monte Carlo error of 0.45% is absurdly more precise than the inputs warrant. **10,000 simulations would be perfectly adequate.** The 50k default is cheap (2 seconds) so we use it, but don't mistake the smooth output distributions for genuine precision. The real uncertainty is in the model assumptions, not the simulation count. You can change `N_SIMULATIONS` in `config.py` — try 1,000 and re-run a few times to see the estimates wobble, then try 10,000 and watch them stabilize. Beyond that, more simulations buy you almost nothing.
+
+For background on Monte Carlo methods in finance, see [Glasserman (2003), *Monte Carlo Methods in Financial Engineering*](https://link.springer.com/book/10.1007/978-0-387-21617-1) or the [Wikipedia overview](https://en.wikipedia.org/wiki/Monte_Carlo_methods_in_finance).
 
 <div align="center">
 <img src="output/mc_simulated_paths.png" alt="Monte Carlo Paths" width="80%">
