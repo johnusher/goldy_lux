@@ -16,9 +16,12 @@ import config
 README_PATH = os.path.join(ROOT, 'README.md')
 METRICS_FILE = os.path.join(config.DATA_DIR, 'model_metrics.json')
 REPORT_FILE = os.path.join(config.OUTPUT_DIR, 'analysis_report.txt')
+MC_REPORT = os.path.join(config.OUTPUT_DIR, 'mc_summary.json')
 
 START_MARKER = '<!-- BOTTOM_LINE_START -->'
 END_MARKER = '<!-- BOTTOM_LINE_END -->'
+EXEC_START = '<!-- EXEC_SUMMARY_START -->'
+EXEC_END = '<!-- EXEC_SUMMARY_END -->'
 
 
 def generate_bottom_line():
@@ -93,8 +96,36 @@ def generate_bottom_line():
     return section
 
 
+def generate_exec_summary():
+    """Generate the executive summary strategy table from MC results."""
+    if not os.path.exists(MC_REPORT):
+        return None
+
+    with open(MC_REPORT) as f:
+        mc = json.load(f)
+
+    s = mc['strategies']
+    # Pick the three strategies we highlight
+    a = s.get('All In Now', {})
+    b = s.get('DCA Quarterly', {})
+    c = s.get('Hold Current', {})
+
+    if not a:
+        return None
+
+    return f"""Three options depending on your risk appetite:
+
+| | If you... | Then... | Expected | Worst 5% |
+|-|-----------|---------|----------|----------|
+| **A** | Can stomach volatility | **All In Now** — invest remaining cash today | {a['expected_return']:+.1f}% | {a['p5_return']:+.1f}% |
+| **B** | Want a smoother ride | **DCA Quarterly** — invest 1/4 of cash each quarter | {b['expected_return']:+.1f}% | {b['p5_return']:+.1f}% |
+| **C** | Mainly want to avoid losses | **Hold Current** — keep cash on the side | {c['expected_return']:+.1f}% | {c['p5_return']:+.1f}% |
+
+> _These numbers are re-generated each time `./update_gold.sh` runs. The figures above reflect the model's output at the time of the last update (see Bottom Line below for the latest). The model's inputs are rough estimates — treat these as structured thinking, not precise predictions._"""
+
+
 def update_readme():
-    """Update the README.md with the latest bottom line section."""
+    """Update the README.md with the latest bottom line and exec summary."""
     if not os.path.exists(README_PATH):
         print(f"  README.md not found at {README_PATH}, skipping update")
         return
@@ -102,20 +133,25 @@ def update_readme():
     with open(README_PATH) as f:
         content = f.read()
 
-    if START_MARKER not in content or END_MARKER not in content:
-        print("  Markers not found in README.md — cannot update bottom line")
-        return
+    # Update bottom line
+    if START_MARKER in content and END_MARKER in content:
+        before = content.split(START_MARKER)[0]
+        after = content.split(END_MARKER)[1]
+        bottom_line = generate_bottom_line()
+        content = f"{before}{START_MARKER}\n\n{bottom_line}\n{END_MARKER}{after}"
 
-    before = content.split(START_MARKER)[0]
-    after = content.split(END_MARKER)[1]
-
-    bottom_line = generate_bottom_line()
-    new_content = f"{before}{START_MARKER}\n\n{bottom_line}\n{END_MARKER}{after}"
+    # Update exec summary table
+    if EXEC_START in content and EXEC_END in content:
+        exec_section = generate_exec_summary()
+        if exec_section:
+            before = content.split(EXEC_START)[0]
+            after = content.split(EXEC_END)[1]
+            content = f"{before}{EXEC_START}\n\n{exec_section}\n\n{EXEC_END}{after}"
 
     with open(README_PATH, 'w') as f:
-        f.write(new_content)
+        f.write(content)
 
-    print("  README.md bottom line updated")
+    print("  README.md updated")
 
 
 if __name__ == '__main__':

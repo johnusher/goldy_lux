@@ -4,43 +4,43 @@
     "status": "No predictions validated yet \u2014 run again after 3+ months"
   },
   "latest_prices": {
-    "gold_usd_oz": 4731.7001953125,
-    "brent_usd": 97.68000030517578,
-    "eurusd": 1.1701380014419556,
-    "gold_eur_gram": 130.00823848058866,
+    "gold_usd_oz": 4713.10009765625,
+    "brent_usd": 98.25,
+    "eurusd": 1.1691803932189941,
+    "gold_eur_gram": 129.60324569729292,
     "source": "yfinance_live"
   },
   "latest_predictions": {
     "3m": {
       "target_date": "2026-07-23",
-      "mean": 132.61,
-      "median": 131.44,
-      "p10": 116.66,
-      "p25": 123.5,
-      "p75": 140.22,
-      "p90": 150.07,
-      "prob_above_current": 0.5487
+      "mean": 132.42,
+      "median": 131.34,
+      "p10": 116.29,
+      "p25": 123.48,
+      "p75": 140.0,
+      "p90": 149.99,
+      "prob_above_current": 0.5569
     },
     "6m": {
       "target_date": "2026-10-22",
-      "mean": 135.64,
-      "median": 132.63,
-      "p10": 111.58,
-      "p25": 120.99,
-      "p75": 146.64,
-      "p90": 163.45,
-      "prob_above_current": 0.5554
+      "mean": 135.07,
+      "median": 132.11,
+      "p10": 111.43,
+      "p25": 120.77,
+      "p75": 145.93,
+      "p90": 162.51,
+      "prob_above_current": 0.558
     },
     "12m": {
       "target_date": "2027-04-22",
-      "mean": 140.59,
-      "median": 133.71,
-      "p10": 103.96,
-      "p25": 116.9,
-      "p75": 156.4,
-      "p90": 184.54,
-      "prob_above_current": 0.5524
+      "mean": 139.89,
+      "median": 133.1,
+      "p10": 104.13,
+      "p25": 116.55,
+      "p75": 156.13,
+      "p90": 183.88,
+      "prob_above_current": 0.5553
     }
   },
-  "run_date": "2026-04-23T10:40:05.458927"
+  "run_date": "2026-04-23T12:10:15.187852"
 }

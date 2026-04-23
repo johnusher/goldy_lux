@@ -81,13 +81,54 @@
           "prob_above_current": 0.5524
         }
       }
+    },
+    {
+      "date": "2026-04-23",
+      "timestamp": "2026-04-23T12:10:15.186522",
+      "actual_gold_eur_gram": 129.6,
+      "actual_gold_usd_oz": 4713.1,
+      "actual_brent": 98.25,
+      "actual_eurusd": 1.1692,
+      "model_hash": "bf0f8750e8b0",
+      "predictions": {
+        "3m": {
+          "target_date": "2026-07-23",
+          "mean": 132.42,
+          "median": 131.34,
+          "p10": 116.29,
+          "p25": 123.48,
+          "p75": 140.0,
+          "p90": 149.99,
+          "prob_above_current": 0.5569
+        },
+        "6m": {
+          "target_date": "2026-10-22",
+          "mean": 135.07,
+          "median": 132.11,
+          "p10": 111.43,
+          "p25": 120.77,
+          "p75": 145.93,
+          "p90": 162.51,
+          "prob_above_current": 0.558
+        },
+        "12m": {
+          "target_date": "2027-04-22",
+          "mean": 139.89,
+          "median": 133.1,
+          "p10": 104.13,
+          "p25": 116.55,
+          "p75": 156.13,
+          "p90": 183.88,
+          "prob_above_current": 0.5553
+        }
+      }
     }
   ],
   "validations": [],
   "metadata": {
     "created": "2026-04-23T10:36:45.179769",
     "model_version": "1.0",
-    "last_updated": "2026-04-23T10:40:05.457823",
-    "n_predictions": 2
+    "last_updated": "2026-04-23T12:10:15.186616",
+    "n_predictions": 3
   }
 }

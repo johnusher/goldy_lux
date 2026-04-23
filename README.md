@@ -27,6 +27,24 @@ Goldy-Lux builds a **branching scenario tree** of geopolitical outcomes (peace, 
 
 **Key insight from the model:** Gold does _not_ always act as a safe haven during conflict. Oil shocks can drive inflation expectations, push up real yields, strengthen the USD, and actually suppress gold prices. The relationship is complex and state-dependent.
 
+### What should I do?
+
+The model's best strategy is **All In Now** — deploy all available cash into gold immediately. It wins because of **positive skew**: escalation/war scenarios (~39% probability) push gold up 13-28%, while peace scenarios only pull it down 7-9%. The asymmetry favours being fully invested.
+
+<!-- EXEC_SUMMARY_START -->
+
+Three options depending on your risk appetite:
+
+| | If you... | Then... | Expected | Worst 5% |
+|-|-----------|---------|----------|----------|
+| **A** | Can stomach volatility | **All In Now** — invest remaining cash today | +8.2% | -24.6% |
+| **B** | Want a smoother ride | **DCA Quarterly** — invest 1/4 of cash each quarter | +6.5% | -20.5% |
+| **C** | Mainly want to avoid losses | **Hold Current** — keep cash on the side | +4.1% | -12.3% |
+
+> _These numbers are re-generated each time `./update_gold.sh` runs. The figures above reflect the model's output at the time of the last update (see Bottom Line below for the latest). The model's inputs are rough estimates — treat these as structured thinking, not precise predictions._
+
+<!-- EXEC_SUMMARY_END -->
+
 <div align="center">
 <img src="output/scenario_tree.png" alt="Scenario Tree" width="90%">
 <br><em>Scenario tree: 12 terminal outcomes over 12 months. Node size = probability. Border color = recommended action.</em>
@@ -38,16 +56,16 @@ Goldy-Lux builds a **branching scenario tree** of geopolitical outcomes (peace, 
 
 <!-- BOTTOM_LINE_START -->
 
-### Updated: 2026-04-23 10:40
+### Updated: 2026-04-23 12:10
 
 **Current Market Snapshot**
 
 | Metric | Value |
 |--------|-------|
-| Gold (EUR/g) | **130.0** |
-| Gold (USD/oz) | **$4,732** |
+| Gold (EUR/g) | **129.6** |
+| Gold (USD/oz) | **$4,713** |
 | Brent Oil | **$98/bbl** |
-| EUR/USD | **1.170** |
+| EUR/USD | **1.169** |
 | Portfolio held | **3,000** |
 | Cash available | **3,000** |
 
@@ -55,9 +73,9 @@ Goldy-Lux builds a **branching scenario tree** of geopolitical outcomes (peace, 
 
 | Horizon | Mean | 25th-75th %ile | P(above current) |
 |---------|------|----------------|-------------------|
-| 3 months | 132.6 | 123.5 - 140.2 | 55% |
-| 6 months | 135.6 | 121.0 - 146.6 | 56% |
-| 12 months | 140.6 | 116.9 - 156.4 | 55% |
+| 3 months | 132.4 | 123.5 - 140.0 | 56% |
+| 6 months | 135.1 | 120.8 - 145.9 | 56% |
+| 12 months | 139.9 | 116.5 - 156.1 | 56% |
 
 **Key Recommendations**
 

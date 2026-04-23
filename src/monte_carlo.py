@@ -668,6 +668,32 @@ def main():
         avg_ret = (gold_factors[final_states == s, -1].mean() - 1) * 100 if (final_states == s).sum() > 0 else 0
         print(f"  {STATE_LABELS[s]:<20} {pct:>5.1%}  (avg gold return: {avg_ret:+.1f}%)")
 
+    # Save summary JSON for README auto-update
+    initial = HELD_EUR + AVAILABLE_EUR
+    summary_data = {'strategies': {}}
+    strategy_name_map = {
+        'Hold Current\n(€3k gold + €3k cash)': 'Hold Current',
+        'All In Now\n(€6k gold)': 'All In Now',
+        'DCA Quarterly\n(€3k now + €750/q)': 'DCA Quarterly',
+        'Buy the Dip\n(deploy €3k on -7%)': 'Buy the Dip',
+        'Sell All Now\n(€6k cash)': 'Sell All Now',
+        'Tactical\n(buy peace, sell war)': 'Tactical',
+    }
+    for name, values in results.items():
+        short = strategy_name_map.get(name, name.split('\n')[0])
+        summary_data['strategies'][short] = {
+            'expected_value': round(float(np.mean(values)), 0),
+            'expected_return': round(float((np.mean(values) / initial - 1) * 100), 1),
+            'p5_return': round(float((np.percentile(values, 5) / initial - 1) * 100), 1),
+            'p95_return': round(float((np.percentile(values, 95) / initial - 1) * 100), 1),
+            'p_loss': round(float((values < initial).mean() * 100), 1),
+        }
+
+    import json as _json
+    with open(os.path.join(config.OUTPUT_DIR, 'mc_summary.json'), 'w') as f:
+        _json.dump(summary_data, f, indent=2)
+    print("  mc_summary.json saved")
+
     print("\nGenerating visualizations...")
 
     out = config.OUTPUT_DIR
