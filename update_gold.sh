@@ -17,6 +17,13 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$SCRIPT_DIR"
 
+# Activate shared venv (one dir up) if present
+SHARED_VENV="$(cd "$SCRIPT_DIR/.." && pwd)/.venv"
+if [ -d "$SHARED_VENV" ]; then
+    # shellcheck disable=SC1091
+    source "$SHARED_VENV/bin/activate"
+fi
+
 QUICK=false
 PUSH=false
 

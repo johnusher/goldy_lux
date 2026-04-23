@@ -214,6 +214,14 @@ def evaluate_strategies(states, gold_returns, gold_factors):
 
     results['Buy the Dip\n(deploy €3k on -7%)'] = final_held + final_deployed
 
+    # --- Strategy 5a: SELL HALF ---
+    # Halve the gold holding, move the proceeds to cash. Intermediate de-risk.
+    sh_gold = HELD_EUR / 2
+    sh_cash = AVAILABLE_EUR + HELD_EUR / 2
+    results['Sell Half\n(€1.5k gold + €4.5k cash)'] = (
+        sh_gold * gold_factors[:, -1] + sh_cash
+    )
+
     # --- Strategy 5: SELL ALL NOW ---
     # Sell existing €3k, hold €6k cash
     results['Sell All Now\n(€6k cash)'] = np.full(n_sim, HELD_EUR + AVAILABLE_EUR)
@@ -858,6 +866,7 @@ def main():
         'All In Now\n(€6k gold)': 'All In Now',
         'DCA Quarterly\n(€3k now + €750/q)': 'DCA Quarterly',
         'Buy the Dip\n(deploy €3k on -7%)': 'Buy the Dip',
+        'Sell Half\n(€1.5k gold + €4.5k cash)': 'Sell Half',
         'Sell All Now\n(€6k cash)': 'Sell All Now',
         'Tactical\n(buy peace, sell war)': 'Tactical',
     }

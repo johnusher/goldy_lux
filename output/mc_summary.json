@@ -28,6 +28,13 @@
       "p95_return": 28.9,
       "p_loss": 46.7
     },
+    "Sell Half": {
+      "expected_value": 6045.0,
+      "expected_return": 0.7,
+      "p5_return": -7.7,
+      "p95_return": 12.5,
+      "p_loss": 51.6
+    },
     "Sell All Now": {
       "expected_value": 6000.0,
       "expected_return": 0.0,

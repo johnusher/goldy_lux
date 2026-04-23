@@ -33,15 +33,28 @@ The model captures both effects. When sell-off risk is included (the default), t
 
 <!-- EXEC_SUMMARY_START -->
 
-Three options depending on your risk appetite:
+The full menu — **buy more, hold, DCA, or sell some/all?** — evaluated across every strategy, ranked by expected return:
 
-| | If you... | Then... | Expected | Worst 5% |
-|-|-----------|---------|----------|----------|
-| **A** | Can stomach volatility | **All In Now** — invest remaining cash today | +3.0% | -30.8% |
-| **B** | Want a smoother ride | **DCA Quarterly** — invest 1/4 of cash each quarter | +2.3% | -25.6% |
-| **C** | Mainly want to avoid losses | **Hold Current** — keep cash on the side | +1.5% | -15.4% |
+| Rank | Strategy | Expected | Worst 5% | Best 5% | P(Loss) |
+|------|----------|----------|----------|---------|---------|
+| **#1 (model pick)** | **All In Now** | +3.0% | -30.8% | +49.9% | 52% |
+| #2 | **DCA Quarterly** | +2.3% | -25.6% | +40.5% | 52% |
+| #3 | **Buy the Dip** | +1.8% | -23.0% | +28.9% | 47% |
+| #4 | **Hold Current** | +1.5% | -15.4% | +24.9% | 52% |
+| #5 | **Sell Half** | +0.7% | -7.7% | +12.5% | 52% |
+| #6 | **Sell All Now** | +0.0% | +0.0% | +0.0% | 0% |
+| #7 | **Tactical** | -0.4% | -21.2% | +21.5% | 52% |
+> _Re-generated each time `./update_gold.sh` runs. Inputs are informed estimates (not fitted from data) — treat these as structured thinking, not precise predictions._
 
-> _These numbers are re-generated each time `./update_gold.sh` runs. The figures above reflect the model's output at the time of the last update (see Bottom Line below for the latest). The model's inputs are rough estimates — treat these as structured thinking, not precise predictions._
+**Model's top pick right now: `All In Now` at +3.0% expected return.**
+
+**What "Sell All" / "Sell Half" mean mathematically:** cash in this model earns **0%**. Real EUR cash earns ~3% at the ECB deposit rate (April 2026), so Sell All / Sell Half would be roughly +3% / +1.5% higher in real terms.
+
+**Important sensitivities the model can't tell you about:**
+
+1. **Tax (Germany):** Selling the gold ETC after a 1-year hold is tax-free (Spekulationsfrist); selling before the year is up triggers full income tax. This tips Sell All toward favourable or unfavourable depending on your hold period — the model treats selling as frictionless.
+2. **Behavioural:** "Sell now, buy back on a dip" is one of the most reliable ways retail investors underperform — the dip either doesn't come or gets missed. A written rule ("buy back when gold drops below €X/g") helps.
+3. **Input uncertainty:** the ranking is highly sensitive to `INITIAL_STATE_PROBS` and the state-conditional return means in `config.py`. If you think the current geopolitical mix is more benign (e.g., more DETENTE, less ESCALATION), the buy-and-hold strategies' expected returns rise. Edit `config.py` and re-run to see.
 
 <!-- EXEC_SUMMARY_END -->
 
@@ -58,16 +71,16 @@ Three options depending on your risk appetite:
 
 <!-- BOTTOM_LINE_START -->
 
-### Updated: 2026-04-23 17:58
+### Updated: 2026-04-23 19:42
 
 **Current Market Snapshot**
 
 | Metric | Value |
 |--------|-------|
-| Gold (EUR/g) | **130.4** |
-| Gold (USD/oz) | **$4,749** |
-| Brent Oil | **$103/bbl** |
-| EUR/USD | **1.171** |
+| Gold (EUR/g) | **130.1** |
+| Gold (USD/oz) | **$4,725** |
+| Brent Oil | **$106/bbl** |
+| EUR/USD | **1.168** |
 | Portfolio held | **3,000** |
 | Cash available | **3,000** |
 
@@ -75,9 +88,9 @@ Three options depending on your risk appetite:
 
 | Horizon | Mean | 25th-75th %ile | P(above current) |
 |---------|------|----------------|-------------------|
-| 3 months | 133.4 | 124.3 - 141.1 | 55% |
-| 6 months | 136.3 | 121.8 - 147.3 | 56% |
-| 12 months | 142.5 | 117.8 - 159.1 | 57% |
+| 3 months | 132.7 | 123.8 - 140.5 | 54% |
+| 6 months | 135.5 | 121.2 - 146.4 | 56% |
+| 12 months | 140.7 | 117.2 - 157.1 | 56% |
 
 **Key Recommendations**
 

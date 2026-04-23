@@ -97,31 +97,51 @@ def generate_bottom_line():
 
 
 def generate_exec_summary():
-    """Generate the executive summary strategy table from MC results."""
+    """Executive-summary strategy table from MC results, ranked by expected return."""
     if not os.path.exists(MC_REPORT):
         return None
 
     with open(MC_REPORT) as f:
         mc = json.load(f)
-
     s = mc['strategies']
-    # Pick the three strategies we highlight
-    a = s.get('All In Now', {})
-    b = s.get('DCA Quarterly', {})
-    c = s.get('Hold Current', {})
-
-    if not a:
+    if not s:
         return None
 
-    return f"""Three options depending on your risk appetite:
+    # Rank all strategies by expected return (descending)
+    ranked = sorted(s.items(), key=lambda kv: -kv[1]['expected_return'])
 
-| | If you... | Then... | Expected | Worst 5% |
-|-|-----------|---------|----------|----------|
-| **A** | Can stomach volatility | **All In Now** — invest remaining cash today | {a['expected_return']:+.1f}% | {a['p5_return']:+.1f}% |
-| **B** | Want a smoother ride | **DCA Quarterly** — invest 1/4 of cash each quarter | {b['expected_return']:+.1f}% | {b['p5_return']:+.1f}% |
-| **C** | Mainly want to avoid losses | **Hold Current** — keep cash on the side | {c['expected_return']:+.1f}% | {c['p5_return']:+.1f}% |
+    lines = [
+        "The full menu — **buy more, hold, DCA, or sell some/all?** — evaluated across every strategy, ranked by expected return:",
+        "",
+        "| Rank | Strategy | Expected | Worst 5% | Best 5% | P(Loss) |",
+        "|------|----------|----------|----------|---------|---------|",
+    ]
+    for i, (name, v) in enumerate(ranked):
+        rank = f"**#{i+1} (model pick)**" if i == 0 else f"#{i+1}"
+        lines.append(
+            f"| {rank} | **{name}** | {v['expected_return']:+.1f}% | "
+            f"{v['p5_return']:+.1f}% | {v['p95_return']:+.1f}% | {v['p_loss']:.0f}% |"
+        )
 
-> _These numbers are re-generated each time `./update_gold.sh` runs. The figures above reflect the model's output at the time of the last update (see Bottom Line below for the latest). The model's inputs are rough estimates — treat these as structured thinking, not precise predictions._"""
+    top_name = ranked[0][0]
+    top_exp = ranked[0][1]['expected_return']
+
+    body = "\n".join(lines)
+
+    note = f"""
+> _Re-generated each time `./update_gold.sh` runs. Inputs are informed estimates (not fitted from data) — treat these as structured thinking, not precise predictions._
+
+**Model's top pick right now: `{top_name}` at {top_exp:+.1f}% expected return.**
+
+**What "Sell All" / "Sell Half" mean mathematically:** cash in this model earns **0%**. Real EUR cash earns ~3% at the ECB deposit rate (April 2026), so Sell All / Sell Half would be roughly +3% / +1.5% higher in real terms.
+
+**Important sensitivities the model can't tell you about:**
+
+1. **Tax (Germany):** Selling the gold ETC after a 1-year hold is tax-free (Spekulationsfrist); selling before the year is up triggers full income tax. This tips Sell All toward favourable or unfavourable depending on your hold period — the model treats selling as frictionless.
+2. **Behavioural:** "Sell now, buy back on a dip" is one of the most reliable ways retail investors underperform — the dip either doesn't come or gets missed. A written rule ("buy back when gold drops below €X/g") helps.
+3. **Input uncertainty:** the ranking is highly sensitive to `INITIAL_STATE_PROBS` and the state-conditional return means in `config.py`. If you think the current geopolitical mix is more benign (e.g., more DETENTE, less ESCALATION), the buy-and-hold strategies' expected returns rise. Edit `config.py` and re-run to see."""
+
+    return body + note
 
 
 def update_readme():
