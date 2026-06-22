@@ -12,7 +12,7 @@ import numpy as np
 # =====================================================================
 
 # How much you currently have invested in gold ETF (EUR)
-PORTFOLIO_HELD = 3000
+PORTFOLIO_HELD = 7000
 
 # How much additional cash you have available to invest (EUR)
 PORTFOLIO_AVAILABLE = 3000
@@ -29,10 +29,10 @@ ETF_FALLBACK_TICKERS = ["IGLN.L", "4GLD.DE", "GC=F"]
 # CURRENT MARKET SNAPSHOT (auto-updated each run, these are fallbacks)
 # =====================================================================
 
-CURRENT_GOLD_USD_OZ = 4780.0   # USD per troy ounce
-CURRENT_BRENT = 99.0           # USD per barrel
-CURRENT_EURUSD = 1.17          # EUR/USD exchange rate
-CURRENT_GOLD_EUR_GRAM = CURRENT_GOLD_USD_OZ / CURRENT_EURUSD / 31.1035  # auto-derived (~€131/g)
+CURRENT_GOLD_USD_OZ = 4186.0   # USD per troy ounce (2026-06-22)
+CURRENT_BRENT = 78.0           # USD per barrel (Brent, post-ceasefire ~$75-82)
+CURRENT_EURUSD = 1.146         # EUR/USD exchange rate (dollar at 1-yr high, hawkish Fed)
+CURRENT_GOLD_EUR_GRAM = CURRENT_GOLD_USD_OZ / CURRENT_EURUSD / 31.1035  # auto-derived (~€117/g)
 
 # =====================================================================
 # MODEL PARAMETERS — Adjust with caution
@@ -63,8 +63,10 @@ TRANSITION_MATRIX = np.array([
 ])
 
 # Current starting state — probabilistic blend
-# Ceasefire fragile = mix of STALEMATE (40%) and ESCALATION (50%) and DETENTE (10%)
-INITIAL_STATE_PROBS = np.array([0.00, 0.10, 0.40, 0.50, 0.00])
+# 2026-06-22: US-Iran peace framework signed (Jun 18), Hormuz reopening, oil -36%
+# from peak. De-escalation now dominant, but Geneva follow-up talks postponed
+# (Jun 19) so it remains fragile -> DETENTE-led with residual STALEMATE/ESCALATION.
+INITIAL_STATE_PROBS = np.array([0.10, 0.45, 0.35, 0.10, 0.00])
 
 # Gold EUR quarterly returns by geopolitical state: (mean, std_dev)
 # These incorporate gold-USD, EUR/USD, and central bank buying dynamics

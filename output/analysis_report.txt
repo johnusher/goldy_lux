@@ -4,11 +4,11 @@ iShares Physical Gold ETC | April 2026 → April 2027
 ================================================================================
 
 ================================CURRENT POSITION================================
-  Gold (USD/oz):    $4,780
-  Gold (EUR/gram):  €131
-  Brent Oil:        $99/bbl
-  EUR/USD:          1.17
-  Held in gold ETF: €3,000
+  Gold (USD/oz):    $4,186
+  Gold (EUR/gram):  €117
+  Brent Oil:        $78/bbl
+  EUR/USD:          1.15
+  Held in gold ETF: €7,000
   Available cash:   €3,000
 
 ===========================MARKOV STATE PROBABILITIES===========================
@@ -23,82 +23,82 @@ iShares Physical Gold ETC | April 2026 → April 2027
   [18.8%] Post-Peace Growth Apr 2027
          Gold: €113–€126/g ($4,100–$4,600/oz)
          Oil:  $65–$78/bbl
-         Return: -9.0%  |  Action: HOLD
+         Return: +3.9%  |  Action: HOLD
          → Hold — lowest price scenario but structural bull intact long-term
 
   [12.6%] New Normal Apr 2027
          Gold: €126–€140/g ($4,600–$5,100/oz)
          Oil:  $90–$104/bbl
-         Return: +1.5%  |  Action: HOLD
+         Return: +15.9%  |  Action: HOLD
          → Hold — range-bound but well-supported; collect on dips
 
   [10.0%] Normalized Apr 2027
          Gold: €115–€129/g ($4,200–$4,700/oz)
          Oil:  $68–$82/bbl
-         Return: -6.9%  |  Action: HOLD
+         Return: +6.3%  |  Action: HOLD
          → Hold — structural gold bull transcends Iran conflict
 
   [ 9.4%] Frozen Conflict Apr 2027
          Gold: €129–€143/g ($4,700–$5,200/oz)
          Oil:  $88–$102/bbl
-         Return: +3.6%  |  Action: HOLD
+         Return: +18.3%  |  Action: HOLD
          → Hold — gold in structural bull market independent of Iran
 
   [ 8.8%] Peace Consolidates Apr 2027
          Gold: €121–€135/g ($4,400–$4,900/oz)
          Oil:  $70–$82/bbl
-         Return: -2.7%  |  Action: HOLD
+         Return: +11.1%  |  Action: HOLD
          → Hold — bought at bottom; long-term structural bull
 
   [ 7.2%] Slow Resolution Apr 2027
          Gold: €124–€137/g ($4,500–$5,000/oz)
          Oil:  $82–$96/bbl
-         Return: -0.6%  |  Action: HOLD
+         Return: +13.5%  |  Action: HOLD
          → Hold — conflict premium fading, structural bull remains
 
   [ 6.3%] War Exhaustion→Peace Apr 2027
          Gold: €121–€135/g ($4,400–$4,900/oz)
          Oil:  $72–$88/bbl
-         Return: -2.7%  |  Action: BUY
+         Return: +11.1%  |  Action: BUY
          → Buy the peace — post-war overshooting creates opportunity
 
   [ 6.3%] Late Resolution Apr 2027
          Gold: €118–€132/g ($4,300–$4,800/oz)
          Oil:  $76–$90/bbl
-         Return: -4.8%  |  Action: HOLD
+         Return: +8.7%  |  Action: HOLD
          → Hold long-term; gold supported by non-conflict factors
 
   [ 6.2%] Renewed Tensions Apr 2027
          Gold: €135–€148/g ($4,900–$5,400/oz)
          Oil:  $100–$120/bbl
-         Return: +7.7%  |  Action: HOLD
+         Return: +23.0%  |  Action: HOLD
          → Hold — already positioned from earlier buy
 
   [ 5.4%] Breakthrough Apr 2027
          Gold: €118–€132/g ($4,300–$4,800/oz)
          Oil:  $74–$88/bbl
-         Return: -4.8%  |  Action: HOLD
+         Return: +8.7%  |  Action: HOLD
          → Hold — gold dip is temporary; structural supports strong
 
   [ 4.8%] Late Escalation Apr 2027
          Gold: €143–€159/g ($5,200–$5,800/oz)
          Oil:  $120–$145/bbl
-         Return: +15.1%  |  Action: SELL
+         Return: +31.4%  |  Action: SELL
          → Sell into spike — take profits on half position
 
   [ 4.2%] Prolonged War Apr 2027
          Gold: €159–€179/g ($5,800–$6,500/oz)
          Oil:  $125–$155/bbl
-         Return: +28.7%  |  Action: SELL
+         Return: +46.9%  |  Action: SELL
          → Take full profits — extreme overshoot; sell entire position
 
 =========================STRATEGY COMPARISON (12-month)=========================
   Strategy                    Expected   Return      Worst       Best
   ---------------------------------------------------------------
-  Hold All                  €   5,983   -0.3% €   5,730 €   6,860
-  All In Now                €   5,969   -0.5% €   5,461 €   7,720
-  DCA Quarterly             €   5,525   -7.9% €   4,947 €   7,611
-  Adaptive (Recommended)    €   5,730   -4.5% €   5,243 €   7,411
+  Hold All                  €  10,788   +7.9% €  10,126 €  13,073
+  All In Now                €  11,127  +11.3% €  10,180 €  14,391
+  DCA Quarterly             €  10,799   +8.0% €   9,745 €  14,549
+  Adaptive (Recommended)    €  10,860   +8.6% €   9,936 €  14,045
 
 ==============================KEY RECOMMENDATIONS===============================
 

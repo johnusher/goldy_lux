@@ -1,0 +1,26 @@
+[
+  {
+    "date": "2026-04-30",
+    "gold_eur_gram": 127.4,
+    "gold_usd_oz": 4630.0,
+    "winner": "Sell All Now",
+    "invest_3k_expected_pct": 3.0,
+    "sell_all_expected_pct": 4.0,
+    "hold_expected_pct": 3.5,
+    "invest_3k_p5_pct": -30.8,
+    "sell_all_p5_pct": 4.0,
+    "hold_p5_pct": -13.4
+  },
+  {
+    "date": "2026-06-22",
+    "gold_eur_gram": 118.4,
+    "gold_usd_oz": 4215.0,
+    "winner": "Sell All Now",
+    "invest_3k_expected_pct": -1.3,
+    "sell_all_expected_pct": 4.0,
+    "hold_expected_pct": 0.3,
+    "invest_3k_p5_pct": -29.9,
+    "sell_all_p5_pct": 4.0,
+    "hold_p5_pct": -19.8
+  }
+]

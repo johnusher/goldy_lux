@@ -37,18 +37,18 @@ The full menu — **buy more, hold, DCA, or sell some/all?** — evaluated acros
 
 | Rank | Strategy | Expected | Worst 5% | Best 5% | P(Loss) |
 |------|----------|----------|----------|---------|---------|
-| **#1 (model pick)** | **All In Now** | +3.0% | -30.8% | +49.9% | 52% |
-| #2 | **DCA Quarterly** | +2.3% | -25.6% | +40.5% | 52% |
-| #3 | **Buy the Dip** | +1.8% | -23.0% | +28.9% | 47% |
-| #4 | **Hold Current** | +1.5% | -15.4% | +24.9% | 52% |
-| #5 | **Sell Half** | +0.7% | -7.7% | +12.5% | 52% |
-| #6 | **Sell All Now** | +0.0% | +0.0% | +0.0% | 0% |
-| #7 | **Tactical** | -0.4% | -21.2% | +21.5% | 52% |
+| **#1 (model pick)** | **Sell All Now** | +4.0% | +4.0% | +4.0% | 0% |
+| #2 | **Sell Half** | +2.2% | -7.9% | +16.1% | 44% |
+| #3 | **Hold Current** | +0.3% | -19.8% | +28.2% | 57% |
+| #4 | **Buy the Dip** | -0.3% | -25.2% | +29.7% | 55% |
+| #5 | **DCA Quarterly** | -1.1% | -26.8% | +34.5% | 60% |
+| #6 | **All In Now** | -1.3% | -29.9% | +38.5% | 60% |
+| #7 | **Tactical** | -2.2% | -26.0% | +26.3% | 59% |
 > _Re-generated each time `./update_gold.sh` runs. Inputs are informed estimates (not fitted from data) — treat these as structured thinking, not precise predictions._
 
-**Model's top pick right now: `All In Now` at +3.0% expected return.**
+**Model's top pick right now: `Sell All Now` at +4.0% expected return.**
 
-**What "Sell All" / "Sell Half" mean mathematically:** cash in this model earns **0%**. Real EUR cash earns ~3% at the ECB deposit rate (April 2026), so Sell All / Sell Half would be roughly +3% / +1.5% higher in real terms.
+**Cash earns 4% annual interest** in this model (ECB deposit rate). Sell All and Sell Half returns include this.
 
 **Important sensitivities the model can't tell you about:**
 
@@ -71,26 +71,26 @@ The full menu — **buy more, hold, DCA, or sell some/all?** — evaluated acros
 
 <!-- BOTTOM_LINE_START -->
 
-### Updated: 2026-04-23 19:42
+### Updated: 2026-06-22 09:45
 
 **Current Market Snapshot**
 
 | Metric | Value |
 |--------|-------|
-| Gold (EUR/g) | **130.1** |
-| Gold (USD/oz) | **$4,725** |
-| Brent Oil | **$106/bbl** |
-| EUR/USD | **1.168** |
-| Portfolio held | **3,000** |
+| Gold (EUR/g) | **118.4** |
+| Gold (USD/oz) | **$4,215** |
+| Brent Oil | **$79/bbl** |
+| EUR/USD | **1.145** |
+| Portfolio held | **7,000** |
 | Cash available | **3,000** |
 
 **Model Predictions (gold EUR/g)**
 
 | Horizon | Mean | 25th-75th %ile | P(above current) |
 |---------|------|----------------|-------------------|
-| 3 months | 132.7 | 123.8 - 140.5 | 54% |
-| 6 months | 135.5 | 121.2 - 146.4 | 56% |
-| 12 months | 140.7 | 117.2 - 157.1 | 56% |
+| 3 months | 118.6 | 111.8 - 124.3 | 46% |
+| 6 months | 119.3 | 108.3 - 127.4 | 46% |
+| 12 months | 121.6 | 103.0 - 134.4 | 46% |
 
 **Key Recommendations**
 
@@ -104,6 +104,24 @@ The full menu — **buy more, hold, DCA, or sell some/all?** — evaluated acros
 > _Model validation pending — predictions will be checked after 3+ months of tracking._
 
 <!-- BOTTOM_LINE_END -->
+
+---
+
+## Decision History
+
+How the model's recommendation has evolved over time:
+
+<!-- DECISION_HISTORY_START -->
+
+Each row is one `./update_gold.sh` run. Cash earns **4%/year** in all strategies.
+12-month expected return shown for three decisions with your current portfolio (held: 7,000, available: 3,000).
+
+| Date | Gold (EUR/g) | Best Strategy | Invest All | Hold | Sell All |
+|------|-------------|---------------|------------|------|----------|
+| 2026-04-30 | 127.4 | **Sell All Now** | +3.0% | +3.5% | +4.0% |
+| 2026-06-22 | 118.4 | **Sell All Now** | -1.3% | +0.3% | +4.0% |
+
+<!-- DECISION_HISTORY_END -->
 
 ---
 
@@ -334,9 +352,9 @@ Calibrated from: Gulf War 1990 (+13% then reversal), Iraq 2003 (buy-rumour/sell-
 </details>
 
 <details>
-<summary><b>Cash earns 0%, EUR/USD is implicit, ETC tracking ignored (click to expand)</b></summary>
+<summary><b>Cash earns 4%/year, EUR/USD is implicit, ETC tracking ignored (click to expand)</b></summary>
 
-**Cash:** EUR cash earns ~3-4% ECB deposit rate. On €3k over 12 months, that's ~€90-120 of unmodeled return. Not negligible, but not decision-changing.
+**Cash:** EUR cash earns 4% annual interest (ECB deposit rate) in the model. This is applied quarterly to all cash positions including Sell All, Sell Half, Hold, and Buy the Dip (until deployed).
 
 **EUR/USD:** Folded into the gold-EUR return distribution per state. This loses the correlation structure (e.g., in escalation, gold-USD flat but EUR weakens, so gold-EUR rises). The return estimates incorporate this implicitly.
 

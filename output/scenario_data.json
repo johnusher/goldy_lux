@@ -15,7 +15,7 @@
       102
     ],
     "probability": 1.0,
-    "expected_return_eur_pct": -0.10460251046024993,
+    "expected_return_eur_pct": 14.070711896798848,
     "action": "HOLD",
     "action_rationale": "Wait for clarity on ceasefire outcome",
     "parent": null,
@@ -42,7 +42,7 @@
       135
     ],
     "probability": 0.35,
-    "expected_return_eur_pct": 6.694560669456062,
+    "expected_return_eur_pct": 21.834687052078362,
     "action": "HOLD",
     "action_rationale": "Spike is short-lived historically; don't chase",
     "parent": "NOW",
@@ -69,7 +69,7 @@
       108
     ],
     "probability": 0.4,
-    "expected_return_eur_pct": -0.6276150627615107,
+    "expected_return_eur_pct": 13.47348303870044,
     "action": "BUY",
     "action_rationale": "Accumulate on dips during range-bound trading; invest \u20ac1,500",
     "parent": "NOW",
@@ -96,7 +96,7 @@
       92
     ],
     "probability": 0.25,
-    "expected_return_eur_pct": -7.949790794979084,
+    "expected_return_eur_pct": 5.112279025322497,
     "action": "BUY",
     "action_rationale": "Strong buy on dip \u2014 structural gold bull case intact; invest \u20ac2,000",
     "parent": "NOW",
@@ -122,7 +122,7 @@
       165
     ],
     "probability": 0.105,
-    "expected_return_eur_pct": 19.246861924686186,
+    "expected_return_eur_pct": 36.16817964644052,
     "action": "SELL",
     "action_rationale": "Take profits on held position (sell \u20ac1,500 of \u20ac3k); extreme levels rarely sustained",
     "parent": "3M_ESCALATION",
@@ -148,7 +148,7 @@
       118
     ],
     "probability": 0.1575,
-    "expected_return_eur_pct": 1.4644351464435212,
+    "expected_return_eur_pct": 15.862398471094119,
     "action": "BUY",
     "action_rationale": "Buy dip after spike reversal; invest \u20ac1,500",
     "parent": "3M_ESCALATION",
@@ -174,7 +174,7 @@
       90
     ],
     "probability": 0.0875,
-    "expected_return_eur_pct": -10.041841004184104,
+    "expected_return_eur_pct": 2.723363592928818,
     "action": "BUY",
     "action_rationale": "Strong buy \u2014 risk premium oversold; invest full \u20ac3k",
     "parent": "3M_ESCALATION",
@@ -199,7 +199,7 @@
       120
     ],
     "probability": 0.12,
-    "expected_return_eur_pct": 3.556485355648542,
+    "expected_return_eur_pct": 18.25131390348782,
     "action": "HOLD",
     "action_rationale": "Hold existing position; wait for resolution clarity",
     "parent": "3M_STALEMATE",
@@ -225,7 +225,7 @@
       107
     ],
     "probability": 0.18,
-    "expected_return_eur_pct": -2.7196652719665315,
+    "expected_return_eur_pct": 11.084567606306738,
     "action": "BUY",
     "action_rationale": "Continue accumulating; invest remaining available (\u20ac1,500)",
     "parent": "3M_STALEMATE",
@@ -251,7 +251,7 @@
       96
     ],
     "probability": 0.1,
-    "expected_return_eur_pct": -5.857740585774063,
+    "expected_return_eur_pct": 7.501194457716198,
     "action": "HOLD",
     "action_rationale": "Hold; gold structural bull intact despite conflict resolution",
     "parent": "3M_STALEMATE",
@@ -276,7 +276,7 @@
       110
     ],
     "probability": 0.0625,
-    "expected_return_eur_pct": 0.4184100418409997,
+    "expected_return_eur_pct": 14.66794075489728,
     "action": "HOLD",
     "action_rationale": "Already bought the dip; hold through volatility",
     "parent": "3M_DEESCALATION",
@@ -301,7 +301,7 @@
       85
     ],
     "probability": 0.1875,
-    "expected_return_eur_pct": -10.041841004184104,
+    "expected_return_eur_pct": 2.723363592928818,
     "action": "HOLD",
     "action_rationale": "Hold \u2014 structural gold supports (CB buying, debt levels) remain",
     "parent": "3M_DEESCALATION",
@@ -326,7 +326,7 @@
       155
     ],
     "probability": 0.042,
-    "expected_return_eur_pct": 28.661087866108794,
+    "expected_return_eur_pct": 46.918299092212145,
     "action": "SELL",
     "action_rationale": "Take full profits \u2014 extreme overshoot; sell entire position",
     "parent": "6M_WIDER_WAR",
@@ -349,7 +349,7 @@
       88
     ],
     "probability": 0.063,
-    "expected_return_eur_pct": -2.7196652719665315,
+    "expected_return_eur_pct": 11.084567606306738,
     "action": "BUY",
     "action_rationale": "Buy the peace \u2014 post-war overshooting creates opportunity",
     "parent": "6M_WIDER_WAR",
@@ -372,7 +372,7 @@
       102
     ],
     "probability": 0.094,
-    "expected_return_eur_pct": 3.556485355648542,
+    "expected_return_eur_pct": 18.25131390348782,
     "action": "HOLD",
     "action_rationale": "Hold \u2014 gold in structural bull market independent of Iran",
     "parent": "6M_ESC_STALEMATE",
@@ -395,7 +395,7 @@
       90
     ],
     "probability": 0.063,
-    "expected_return_eur_pct": -4.811715481171552,
+    "expected_return_eur_pct": 8.695652173913038,
     "action": "HOLD",
     "action_rationale": "Hold long-term; gold supported by non-conflict factors",
     "parent": "6M_ESC_STALEMATE",
@@ -418,7 +418,7 @@
       82
     ],
     "probability": 0.0875,
-    "expected_return_eur_pct": -2.7196652719665315,
+    "expected_return_eur_pct": 11.084567606306738,
     "action": "HOLD",
     "action_rationale": "Hold \u2014 bought at bottom; long-term structural bull",
     "parent": "6M_FORCED_PEACE",
@@ -441,7 +441,7 @@
       145
     ],
     "probability": 0.048,
-    "expected_return_eur_pct": 15.062761506276146,
+    "expected_return_eur_pct": 31.39034878165312,
     "action": "SELL",
     "action_rationale": "Sell into spike \u2014 take profits on half position",
     "parent": "6M_SLOW_ESC",
@@ -464,7 +464,7 @@
       96
     ],
     "probability": 0.072,
-    "expected_return_eur_pct": -0.6276150627615107,
+    "expected_return_eur_pct": 13.47348303870044,
     "action": "HOLD",
     "action_rationale": "Hold \u2014 conflict premium fading, structural bull remains",
     "parent": "6M_SLOW_ESC",
@@ -487,7 +487,7 @@
       104
     ],
     "probability": 0.126,
-    "expected_return_eur_pct": 1.4644351464435212,
+    "expected_return_eur_pct": 15.862398471094119,
     "action": "HOLD",
     "action_rationale": "Hold \u2014 range-bound but well-supported; collect on dips",
     "parent": "6M_CONT_STALEMATE",
@@ -510,7 +510,7 @@
       88
     ],
     "probability": 0.054,
-    "expected_return_eur_pct": -4.811715481171552,
+    "expected_return_eur_pct": 8.695652173913038,
     "action": "HOLD",
     "action_rationale": "Hold \u2014 gold dip is temporary; structural supports strong",
     "parent": "6M_CONT_STALEMATE",
@@ -533,7 +533,7 @@
       82
     ],
     "probability": 0.1,
-    "expected_return_eur_pct": -6.903765690376574,
+    "expected_return_eur_pct": 6.306736741519359,
     "action": "HOLD",
     "action_rationale": "Hold \u2014 structural gold bull transcends Iran conflict",
     "parent": "6M_GRAD_DEESC",
@@ -556,7 +556,7 @@
       120
     ],
     "probability": 0.0625,
-    "expected_return_eur_pct": 7.740585774058584,
+    "expected_return_eur_pct": 23.029144768275202,
     "action": "HOLD",
     "action_rationale": "Hold \u2014 already positioned from earlier buy",
     "parent": "6M_DEAL_FAILS",
@@ -579,7 +579,7 @@
       78
     ],
     "probability": 0.1875,
-    "expected_return_eur_pct": -8.995815899581594,
+    "expected_return_eur_pct": 3.9178213091256575,
     "action": "HOLD",
     "action_rationale": "Hold \u2014 lowest price scenario but structural bull intact long-term",
     "parent": "6M_PEACE_DEAL",
