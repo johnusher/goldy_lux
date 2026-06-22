@@ -17,11 +17,14 @@ README_PATH = os.path.join(ROOT, 'README.md')
 METRICS_FILE = os.path.join(config.DATA_DIR, 'model_metrics.json')
 REPORT_FILE = os.path.join(config.OUTPUT_DIR, 'analysis_report.txt')
 MC_REPORT = os.path.join(config.OUTPUT_DIR, 'mc_summary.json')
+HISTORY_FILE = os.path.join(config.DATA_DIR, 'decision_history.json')
 
 START_MARKER = '<!-- BOTTOM_LINE_START -->'
 END_MARKER = '<!-- BOTTOM_LINE_END -->'
 EXEC_START = '<!-- EXEC_SUMMARY_START -->'
 EXEC_END = '<!-- EXEC_SUMMARY_END -->'
+HISTORY_START = '<!-- DECISION_HISTORY_START -->'
+HISTORY_END = '<!-- DECISION_HISTORY_END -->'
 
 
 def generate_bottom_line():
@@ -133,7 +136,7 @@ def generate_exec_summary():
 
 **Model's top pick right now: `{top_name}` at {top_exp:+.1f}% expected return.**
 
-**What "Sell All" / "Sell Half" mean mathematically:** cash in this model earns **0%**. Real EUR cash earns ~3% at the ECB deposit rate (April 2026), so Sell All / Sell Half would be roughly +3% / +1.5% higher in real terms.
+**Cash earns {config.CASH_ANNUAL_INTEREST:.0%} annual interest** in this model (ECB deposit rate). Sell All and Sell Half returns include this.
 
 **Important sensitivities the model can't tell you about:**
 
@@ -142,6 +145,97 @@ def generate_exec_summary():
 3. **Input uncertainty:** the ranking is highly sensitive to `INITIAL_STATE_PROBS` and the state-conditional return means in `config.py`. If you think the current geopolitical mix is more benign (e.g., more DETENTE, less ESCALATION), the buy-and-hold strategies' expected returns rise. Edit `config.py` and re-run to see."""
 
     return body + note
+
+
+def update_decision_history():
+    """Append current run's key results to decision_history.json."""
+    if not os.path.exists(MC_REPORT) or not os.path.exists(METRICS_FILE):
+        return
+
+    with open(MC_REPORT) as f:
+        mc = json.load(f)
+    with open(METRICS_FILE) as f:
+        metrics = json.load(f)
+
+    strategies = mc.get('strategies', {})
+    prices = metrics.get('latest_prices', {})
+    gold_eur = prices.get('gold_eur_gram', 0)
+    today = datetime.now().strftime('%Y-%m-%d')
+
+    # Determine winning strategy (highest expected return)
+    if strategies:
+        winner = max(strategies.items(), key=lambda kv: kv[1]['expected_return'])
+        winner_name = winner[0]
+    else:
+        return
+
+    # 12-month projected portfolio values for the three key scenarios
+    invest = strategies.get('All In Now', {})
+    sell = strategies.get('Sell All Now', {})
+    hold = strategies.get('Hold Current', {})
+
+    entry = {
+        'date': today,
+        'gold_eur_gram': round(gold_eur, 1),
+        'gold_usd_oz': round(prices.get('gold_usd_oz', 0), 0),
+        'winner': winner_name,
+        'invest_3k_expected_pct': invest.get('expected_return', 0),
+        'sell_all_expected_pct': sell.get('expected_return', 0),
+        'hold_expected_pct': hold.get('expected_return', 0),
+        'invest_3k_p5_pct': invest.get('p5_return', 0),
+        'sell_all_p5_pct': sell.get('p5_return', 0),
+        'hold_p5_pct': hold.get('p5_return', 0),
+    }
+
+    # Load existing history
+    history = []
+    if os.path.exists(HISTORY_FILE):
+        with open(HISTORY_FILE) as f:
+            history = json.load(f)
+
+    # Skip if we already have an entry for today
+    if history and history[-1].get('date') == today:
+        history[-1] = entry  # update today's entry
+    else:
+        history.append(entry)
+
+    with open(HISTORY_FILE, 'w') as f:
+        json.dump(history, f, indent=2)
+
+    print(f"  Decision history updated ({len(history)} entries)")
+
+
+def generate_decision_history():
+    """Generate the decision history markdown table for README."""
+    if not os.path.exists(HISTORY_FILE):
+        return None
+
+    with open(HISTORY_FILE) as f:
+        history = json.load(f)
+
+    if not history:
+        return None
+
+    cash_rate = config.CASH_ANNUAL_INTEREST
+
+    lines = [
+        f"Each row is one `./update_gold.sh` run. Cash earns **{cash_rate:.0%}/year** in all strategies.",
+        f"12-month expected return shown for three decisions with your current portfolio "
+        f"(held: {config.PORTFOLIO_HELD:,}, available: {config.PORTFOLIO_AVAILABLE:,}).",
+        "",
+        "| Date | Gold (EUR/g) | Best Strategy | Invest All | Hold | Sell All |",
+        "|------|-------------|---------------|------------|------|----------|",
+    ]
+
+    for e in history:
+        lines.append(
+            f"| {e['date']} | {e['gold_eur_gram']:.1f} | **{e['winner']}** | "
+            f"{e['invest_3k_expected_pct']:+.1f}% | "
+            f"{e['hold_expected_pct']:+.1f}% | "
+            f"{e['sell_all_expected_pct']:+.1f}% |"
+        )
+
+    return "\n".join(lines)
 
 
 def update_readme():
@@ -168,6 +262,14 @@ def update_readme():
             after = content.split(EXEC_END)[1]
             content = f"{before}{EXEC_START}\n\n{exec_section}\n\n{EXEC_END}{after}"
 
+    # Update decision history
+    if HISTORY_START in content and HISTORY_END in content:
+        history_section = generate_decision_history()
+        if history_section:
+            before = content.split(HISTORY_START)[0]
+            after = content.split(HISTORY_END)[1]
+            content = f"{before}{HISTORY_START}\n\n{history_section}\n\n{HISTORY_END}{after}"
+
     with open(README_PATH, 'w') as f:
         f.write(content)
 
@@ -175,4 +277,5 @@ def update_readme():
 
 
 if __name__ == '__main__':
+    update_decision_history()
     update_readme()

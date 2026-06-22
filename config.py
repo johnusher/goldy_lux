@@ -103,6 +103,11 @@ LIQUIDITY_CRISIS_PROB = {
 # When a liquidity crisis fires, gold drops sharply then partially recovers
 # within the same quarter. Net quarterly return drawn from this distribution:
 LIQUIDITY_CRISIS_RETURN = (-0.18, 0.06)  # (mean, std): avg -18%, std 6%
+
+# Cash interest rate (annual). EUR cash in a savings/deposit account.
+# ECB deposit rate ~3-4% as of April 2026; using 4% as user-specified.
+CASH_ANNUAL_INTEREST = 0.04
+CASH_QUARTERLY_INTEREST = (1 + CASH_ANNUAL_INTEREST) ** 0.25 - 1  # ~0.985% per quarter
 # Calibrated from: March 2026 (-25% peak-to-trough, partial recovery to ~-15% net),
 #                  2008 GFC (-30% drawdown, partial recovery),
 #                  2013 (-15% net quarterly)

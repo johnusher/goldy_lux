@@ -49,6 +49,7 @@ CURRENT_GOLD_EUR_GRAM = config.CURRENT_GOLD_EUR_GRAM
 
 N_SIMULATIONS = config.N_SIMULATIONS
 N_QUARTERS = config.N_QUARTERS
+CASH_Q_RATE = config.CASH_QUARTERLY_INTEREST  # quarterly interest on cash
 
 
 # =============================================================================
@@ -141,10 +142,13 @@ def evaluate_strategies(states, gold_returns, gold_factors):
     n_sim = states.shape[0]
     results = {}
 
+    # Cash growth factor over full horizon
+    cash_growth_full = (1 + CASH_Q_RATE) ** N_QUARTERS
+
     # --- Strategy 1: HOLD CURRENT ---
-    # Keep €3k in gold, €3k in cash. No trades.
+    # Keep €3k in gold, €3k in cash (cash earns interest).
     gold_val = HELD_EUR * gold_factors[:, -1]
-    cash_val = np.full(n_sim, AVAILABLE_EUR)
+    cash_val = AVAILABLE_EUR * cash_growth_full
     results['Hold Current\n(€3k gold + €3k cash)'] = gold_val + cash_val
 
     # --- Strategy 2: ALL IN NOW ---
@@ -204,27 +208,30 @@ def evaluate_strategies(states, gold_returns, gold_factors):
     for q in range(N_QUARTERS):
         mask = buy_quarter == q
         if mask.sum() > 0:
-            # Growth from buy point to end
+            # Cash earned interest for q quarters before being deployed into gold
+            cash_with_interest = AVAILABLE_EUR * (1 + CASH_Q_RATE) ** q
             remaining_growth = gold_factors[mask, -1] / gold_factors[mask, q]
-            final_deployed[mask] = AVAILABLE_EUR * remaining_growth
+            final_deployed[mask] = cash_with_interest * remaining_growth
 
-    # For those who never bought, cash stays
+    # For those who never bought, cash earns interest for full period
     never_bought = buy_quarter == -1
-    final_deployed[never_bought] = AVAILABLE_EUR
+    final_deployed[never_bought] = AVAILABLE_EUR * cash_growth_full
 
     results['Buy the Dip\n(deploy €3k on -7%)'] = final_held + final_deployed
 
     # --- Strategy 5a: SELL HALF ---
-    # Halve the gold holding, move the proceeds to cash. Intermediate de-risk.
+    # Halve the gold holding, move the proceeds to cash (cash earns interest).
     sh_gold = HELD_EUR / 2
-    sh_cash = AVAILABLE_EUR + HELD_EUR / 2
+    sh_cash = (AVAILABLE_EUR + HELD_EUR / 2) * cash_growth_full
     results['Sell Half\n(€1.5k gold + €4.5k cash)'] = (
         sh_gold * gold_factors[:, -1] + sh_cash
     )
 
     # --- Strategy 5: SELL ALL NOW ---
-    # Sell existing €3k, hold €6k cash
-    results['Sell All Now\n(€6k cash)'] = np.full(n_sim, HELD_EUR + AVAILABLE_EUR)
+    # Sell existing €3k, hold €6k cash (earns interest).
+    results['Sell All Now\n(€6k cash)'] = np.full(
+        n_sim, (HELD_EUR + AVAILABLE_EUR) * cash_growth_full
+    )
 
     # --- Strategy 6: TACTICAL ---
     # Start with €3k gold. At each quarter:
@@ -271,7 +278,12 @@ def evaluate_strategies(states, gold_returns, gold_factors):
             if sell_q is not None:
                 gold_val_i = HELD_EUR * gold_factors[i, sell_q]  # value at sale time
 
-        cash_val_i = AVAILABLE_EUR
+        # If gold was sold, proceeds earn interest for remaining quarters
+        if sold_tactical[i] and sell_q is not None:
+            remaining_q = N_QUARTERS - (sell_q + 1)
+            gold_val_i = gold_val_i * (1 + CASH_Q_RATE) ** remaining_q
+
+        cash_val_i = AVAILABLE_EUR * cash_growth_full  # default: cash earns interest full period
         if deployed_tactical[i]:
             # Find when deployed
             deploy_q = None
